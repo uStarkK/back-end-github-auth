@@ -3,6 +3,12 @@ import local from 'passport-local';
 import GitHubStrategy from "passport-github2"
 import { createHash, isValidPassword } from '../utils.js';
 import { UserModel } from '../DAO/models/users.model.js';
+import dotenv from 'dotenv'
+
+dotenv.config();  // Loads environment variables from .env file
+
+const { CLIENT_ID, SECRET} = process.env;
+
 const LocalStrategy = local.Strategy;
 
 export function iniPassport() {
@@ -67,8 +73,8 @@ export function iniPassport() {
         'github',
         new GitHubStrategy(
             {
-                clientID: 'Iv1.4ef6bb77493849bf',
-                clientSecret: '2c8cfb925eb465c7a2057749e6a94353a3acd816',
+                clientID: CLIENT_ID,
+                clientSecret: SECRET,
                 callbackURL: 'http://localhost:8080/api/sessions/githubcallback',
             },
             async (accesToken, _, profile, done) => {
