@@ -1,0 +1,54 @@
+<script src="/js/home.js"></script>
+<div>
+    <h1>Bienvenido a la lista de productos!</h1>
+    <div id="goToCart">
+        <script>
+            let link = document.createElement('a');
+
+            // Set the href attribute
+            link.href = `/carts/${cartId}`;
+
+            // Set the link text
+            link.innerText = 'Go to cart';
+
+            // Appends the element to "goToCart" id. In this case, a div acting as a container
+            let container = document.getElementById('goToCart');
+            container.appendChild(link);
+        </script>
+    </div>
+    {{#if title}}
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-evenly;">
+        <div style="display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: rgb(0, 0, 0);
+    margin-top: 3%;
+    background-color: rgb(201, 195, 195);
+    width: 15%;
+    border-radius: 10px;
+    text-align: center;
+    padding-bottom: 1%;
+    margin-right: 3%;">
+            <div>
+                <h1>
+                    {{title}}
+                </h1>
+                <h2>
+                    ${{price}}
+                </h2>
+                <h2>
+                    {{desc}}
+                </h2>
+                <h2>
+                    Stock:{{stock}}
+                </h2>
+                <h2>
+                    Category: {{category}}
+                </h2>
+            </div>
+            <button onclick="addProductToCart(`{{id}}`)">Add to cart</button>
+        </div>
+    </div>
+    {{else}}
+    No hay ningun producto cargado
+    {{/if}}

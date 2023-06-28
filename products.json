@@ -1,0 +1,250 @@
+[
+    {
+        "title": "Product 1",
+        "desc": "Description of Product 1",
+        "price": 10.99,
+        "code": "P001",
+        "category": "A",
+        "stock": 100
+    },
+    {
+        "title": "Product 2",
+        "desc": "Description of Product 2",
+        "price": 19.99,
+        "code": "P002",
+        "category": "B",
+        "stock": 50
+    },
+    {
+        "title": "Product 3",
+        "desc": "Description of Product 3",
+        "price": 24.99,
+        "code": "P003",
+        "category": "C",
+        "stock": 75
+    },
+    {
+        "title": "Product 4",
+        "desc": "Description of Product 4",
+        "price": 14.99,
+        "code": "P004",
+        "category": "A",
+        "stock": 200
+    },
+    {
+        "title": "Product 6",
+        "desc": "Description of Product 6",
+        "price": 9.99,
+        "code": "P006",
+        "category": "B",
+        "stock": 80
+    },
+    {
+        "title": "Product 7",
+        "desc": "Description of Product 7",
+        "price": 9.99,
+        "code": "P007",
+        "category": "B",
+        "stock": 80
+    },
+    {
+        "title": "Product 8",
+        "desc": "Description of Product 8",
+        "price": 9.99,
+        "code": "P008",
+        "category": "B",
+        "stock": 80
+    },
+    {
+        "title": "Product 9",
+        "desc": "Description of Product 9",
+        "price": 9.99,
+        "code": "P009",
+        "category": "B",
+        "stock": 80
+    },
+    {
+        "title": "Product 10",
+        "desc": "Description of Product 10",
+        "price": 9.99,
+        "code": "P0010",
+        "category": "B",
+        "stock": 80
+    },
+    {
+        "title": "Product 11",
+        "desc": "Description of Product 11",
+        "price": 9.99,
+        "code": "P0011",
+        "category": "B",
+        "stock": 80
+    },
+    {
+        "title": "Product 12",
+        "desc": "Description of Product 12",
+        "price": 9.99,
+        "code": "P0012",
+        "category": "B",
+        "stock": 80
+    },
+    {
+        "title": "Product 13",
+        "desc": "Description of Product 13",
+        "price": 9.99,
+        "code": "P0013",
+        "category": "B",
+        "stock": 80
+    },
+    {
+        "title": "Product 14",
+        "desc": "Description of Product 14",
+        "price": 9.99,
+        "code": "P0014",
+        "category": "B",
+        "stock": 80
+    },
+    {
+        "title": "Product 15",
+        "desc": "Description of Product 15",
+        "price": 9.99,
+        "code": "P0015",
+        "category": "B",
+        "stock": 80
+    },
+    {
+        "title": "Product 16",
+        "desc": "Description of Product 16",
+        "price": 9.99,
+        "code": "P0016",
+        "category": "B",
+        "stock": 80
+    },
+    {
+        "title": "Product 17",
+        "desc": "Description of Product 17",
+        "price": 9.99,
+        "code": "P0017",
+        "category": "B",
+        "stock": 80
+    },
+    {
+        "title": "Product 18",
+        "desc": "Description of Product 18",
+        "price": 9.99,
+        "code": "P0018",
+        "category": "B",
+        "stock": 80
+    },
+    {
+        "title": "Product 19",
+        "desc": "Description of Product 19",
+        "price": 9.99,
+        "code": "P0019",
+        "category": "B",
+        "stock": 80
+    },
+    {
+        "title": "Product 20",
+        "desc": "Description of Product 20",
+        "price": 9.99,
+        "code": "P0020",
+        "category": "B",
+        "stock": 80
+    },
+    {
+        "title": "Product 21",
+        "desc": "Description of Product 21",
+        "price": 9.99,
+        "code": "P0021",
+        "category": "B",
+        "stock": 80
+    },
+    {
+        "title": "Product 22",
+        "desc": "Description of Product 22",
+        "price": 9.99,
+        "code": "P0022",
+        "category": "B",
+        "stock": 80
+    },
+    {
+        "title": "Product 23",
+        "desc": "Description of Product 23",
+        "price": 9.99,
+        "code": "P0023",
+        "category": "B",
+        "stock": 80
+    },
+    {
+        "title": "Product 24",
+        "desc": "Description of Product 24",
+        "price": 9.99,
+        "code": "P0024",
+        "category": "B",
+        "stock": 80
+    },
+    {
+        "title": "Product 25",
+        "desc": "Description of Product 25",
+        "price": 9.99,
+        "code": "P0025",
+        "category": "B",
+        "stock": 80
+    },
+    {
+        "title": "Product 26",
+        "desc": "Description of Product 26",
+        "price": 9.99,
+        "code": "P0026",
+        "category": "B",
+        "stock": 80
+    },
+    {
+        "title": "Product 27",
+        "desc": "Description of Product 27",
+        "price": 9.99,
+        "code": "P0027",
+        "category": "B",
+        "stock": 80
+    },
+    {
+        "title": "Product 28",
+        "desc": "Description of Product 28",
+        "price": 9.99,
+        "code": "P0028",
+        "category": "B",
+        "stock": 80
+    },
+    {
+        "title": "Product 29",
+        "desc": "Description of Product 29",
+        "price": 9.99,
+        "code": "P0029",
+        "category": "B",
+        "stock": 80
+    },
+    {
+        "title": "Product 30",
+        "desc": "Description of Product 30",
+        "price": 9.99,
+        "code": "P0030",
+        "category": "B",
+        "stock": 80
+    },
+    {
+        "title": "Product 31",
+        "desc": "Description of Product 31",
+        "price": 9.99,
+        "code": "P0031",
+        "category": "B",
+        "stock": 80
+    },
+    {
+        "title": "Product 32",
+        "desc": "Description of Product 32",
+        "price": 29.99,
+        "code": "P032",
+        "category": "C",
+        "stock": 150
+    }
+]

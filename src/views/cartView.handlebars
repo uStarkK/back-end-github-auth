@@ -1,0 +1,51 @@
+<div>
+    <h1>Bienvenido al carrito!</h1>
+    <div id="goToProducts">
+        <script>
+            let link = document.createElement('a');
+
+            // Set the href attribute
+            link.href = `/products`;
+
+            // Set the link text
+            link.innerText = 'Go back to shopping';
+
+            // Appends the element to "goToCart" id. In this case, a div acting as a container
+            let container = document.getElementById('goToProducts');
+            container.appendChild(link);
+        </script>
+    </div>
+    {{#if items}}
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-evenly;">
+        {{#each items}}
+        <div style="display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: rgb(0, 0, 0);
+    margin-top: 3%;
+    background-color: rgb(201, 195, 195);
+    width: 15%;
+    border-radius: 10px;
+    text-align: center;
+    padding-bottom: 1%;
+    margin-right: 3%;">
+            <div>
+                <h1>
+                    {{this.productId.title}}
+                </h1>
+                <h2>
+                    ${{this.productId.price}}
+                </h2>
+                <h2>
+                    Amount: {{this.quantity}}
+                </h2>
+                <h2>
+                    Category: {{this.productId.category}}
+                </h2>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+    {{else}}
+    Your cart is empty!
+    {{/if}}

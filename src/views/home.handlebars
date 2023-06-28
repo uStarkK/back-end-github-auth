@@ -1,0 +1,78 @@
+<script src="/js/home.js"></script>
+<div>
+    <h1>Bienvenido a la lista de productos!</h1>
+    <div id="goToCart">
+        <script>
+            let link = document.createElement('a');
+
+            // Set the href attribute
+            link.href = `/carts/${cartId}`;
+
+            // Set the link text
+            link.innerText = 'Go to cart';
+
+            // Appends the element to "goToCart" id. In this case, a div acting as a container
+            let container = document.getElementById('goToCart');
+            container.appendChild(link);
+        </script>
+    </div>
+    <div>
+        <a href="/auth/profile">My Profile</a>
+    </div>
+    Page:{{pagination.page}} / {{pagination.totalPages}}
+    {{sort}}
+    {{#if docs}}
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-evenly;">
+        {{#each docs}}
+        <div style="display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: rgb(0, 0, 0);
+    margin-top: 3%;
+    background-color: rgb(201, 195, 195);
+    width: 15%;
+    border-radius: 10px;
+    text-align: center;
+    padding-bottom: 1%;
+    margin-right: 3%;">
+            <a href="/{{this._id}}" style="text-decoration: none; color:black">
+                <div>
+                    <h1>
+                        {{this.title}}
+                    </h1>
+                    <h2>
+                        ${{this.price}}
+                    </h2>
+                    <h2>
+                        Stock:{{this.stock}}
+                    </h2>
+                    <h2>
+                        Category: {{this.category}}
+                    </h2>
+                </div>
+            </a>
+            <button onclick="addProductToCart(`{{this.id}}`)">Add to cart</button>
+        </div>
+
+
+        {{/each}}
+    </div>
+    {{else}}
+    No hay ningun producto cargado
+    {{/if}}
+    <div style="display: flex;
+    justify-content: center;">
+        <div style="display: flex;
+    justify-content: space-evenly;
+    width: 17%;">
+            <a href="?page=1&limit={{pagination.limit}}&sort={{sort}}"> «« </a>
+            {{#if pagination.prevPage}}
+            <a href="?page={{pagination.prevPage}}&limit={{pagination.limit}}&sort={{sort}}">Prev </a>
+            {{/if}}
+            {{#if pagination.nextPage}}
+            <a href="?page={{pagination.nextPage}}&limit={{pagination.limit}}&sort={{sort}}"> Next </a>
+            {{/if}}
+            <a href="?page={{pagination.totalPages}}&limit={{pagination.limit}}&sort={{sort}}"> »» </a>
+        </div>
+    </div>
+</div>
