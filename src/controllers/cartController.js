@@ -215,7 +215,7 @@ export const updateCart = async (req, res) => {
                 { _id: cartId },
                 { $push: { items: { productId: productFound._id, quantity: item.quantity || 1 } } },
                 { new: true }
-            );
+            )
         })
         await cartFound.save()
         return  res.status(200).json({

@@ -15,7 +15,7 @@ class CartsService {
         return cart
     }
 
-    async createCart(){
+    async assignCart(){
         return await CartModel.create({})
     }
 

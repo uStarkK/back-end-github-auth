@@ -1,13 +1,20 @@
+<script src="/js/profile.js"></script>
 <h1>My Profile</h1>
-
 Name: {{user.firstName}} {{user.lastName}}
 <br />
+{{#if user.age}}
+Age: {{user.age}}
+{{/if}}
+<br/>
 email:
 {{user.email}}
 <br />
-isAdmin:
-{{user.isAdmin}}
+Role:
+{{user.role}}
 <br />
 
 <br />
+<div>
+    <a href='/products'>Go to Products</a>
+</div>
 <a href='/auth/logout'>logout!</a>

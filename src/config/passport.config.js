@@ -1,14 +1,12 @@
+import dotenv from 'dotenv';
 import passport from 'passport';
+import GitHubStrategy from "passport-github2";
 import local from 'passport-local';
-import GitHubStrategy from "passport-github2"
-import { createHash, isValidPassword } from '../utils.js';
 import { UserModel } from '../DAO/models/users.model.js';
-import dotenv from 'dotenv'
-
+import CartService from '../services/CartService.js';
+import { createHash, isValidPassword } from '../utils.js';
 dotenv.config();  // Loads environment variables from .env file
-
-const { CLIENT_ID, SECRET} = process.env;
-
+const { CLIENT_ID, SECRET } = process.env;
 const LocalStrategy = local.Strategy;
 
 export function iniPassport() {
@@ -21,11 +19,11 @@ export function iniPassport() {
                     console.log('User Not Found with username (email) ' + username);
                     return done(null, false);
                 }
-                if (!isValidPassword(password, user.password ?? "nopass" )) {
+                if (!isValidPassword(password, user.password ?? "nopass")) {
                     console.log('Invalid Password');
                     return done(null, false);
                 }
-
+                
                 return done(null, user);
             } catch (err) {
                 return done(err);
@@ -42,7 +40,7 @@ export function iniPassport() {
             },
             async (req, username, password, done) => {
                 try {
-                    const { email, firstName, lastName } = req.body;
+                    const { email, firstName, lastName, age } = req.body;
                     let user = await UserModel.findOne({ email: username });
                     if (user) {
                         console.log('User already exists');
@@ -53,9 +51,12 @@ export function iniPassport() {
                         email,
                         firstName,
                         lastName,
+                        age,
                         isAdmin: false,
                         password: createHash(password),
+                        cartId: await CartService.assignCart()
                     };
+                
                     let userCreated = await UserModel.create(newUser);
                     console.log(userCreated);
                     console.log('User Registration succesful');
@@ -101,10 +102,11 @@ export function iniPassport() {
                             email: profile.email,
                             firstName: profile._json.name || profile._json.login || 'noname',
                             lastName: "nolast",
+                            age: null,
                             isAdmin: false,
                             password: "$%/$)#lJGITKsj(!_$:%HUB_:;mf/#)¨*",
+                            cartId: await CartService.assignCart()
                         };
-
                         let userCreated = await UserModel.create(newUser);
 
 
@@ -112,10 +114,10 @@ export function iniPassport() {
                         try {
                             const user = await UserModel.findOneAndUpdate(
                                 { email: newUser.email },
-                                { $set: {password: null, lastName: null} },
+                                { $set: { password: null, lastName: null } },
                                 { new: true, upsert: true }
                             );
-                            console.log(user);
+                            /* console.log(user); */
                         } catch (err) {
                             // Handle the error
                             console.error(err);

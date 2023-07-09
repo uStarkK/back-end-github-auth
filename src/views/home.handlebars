@@ -4,16 +4,17 @@
     <div id="goToCart">
         <script>
             let link = document.createElement('a');
-
+            console.log(cartId)
             // Set the href attribute
-            link.href = `/carts/${cartId}`;
+            link.href =  `/carts/${cartId}`;
 
             // Set the link text
             link.innerText = 'Go to cart';
 
             // Appends the element to "goToCart" id. In this case, a div acting as a container
             let container = document.getElementById('goToCart');
-            container.appendChild(link);
+            container.appendChild(link);    
+            
         </script>
     </div>
     <div>
@@ -35,7 +36,7 @@
     text-align: center;
     padding-bottom: 1%;
     margin-right: 3%;">
-            <a href="/{{this._id}}" style="text-decoration: none; color:black">
+            <a href="/products/{{this._id}}" style="text-decoration: none; color:black">
                 <div>
                     <h1>
                         {{this.title}}
@@ -67,12 +68,12 @@
     width: 17%;">
             <a href="?page=1&limit={{pagination.limit}}&sort={{sort}}"> «« </a>
             {{#if pagination.prevPage}}
-            <a href="?page={{pagination.prevPage}}&limit={{pagination.limit}}&sort={{sort}}">Prev </a>
+            <a href="?page={{pagination.prevPage}}&limit={{pagination.limit}}&sort={{sort}}&query={{query}}">Prev </a>
             {{/if}}
             {{#if pagination.nextPage}}
-            <a href="?page={{pagination.nextPage}}&limit={{pagination.limit}}&sort={{sort}}"> Next </a>
+            <a href="?page={{pagination.nextPage}}&limit={{pagination.limit}}&sort={{sort}}&query={{query}}"> Next </a>
             {{/if}}
-            <a href="?page={{pagination.totalPages}}&limit={{pagination.limit}}&sort={{sort}}"> »» </a>
+            <a href="?page={{pagination.totalPages}}&limit={{pagination.limit}}&sort={{sort}}&query={{query}}"> »» </a>
         </div>
     </div>
 </div>

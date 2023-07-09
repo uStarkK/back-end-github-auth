@@ -32,7 +32,8 @@ productsRender.get("/", async (req, res, next) => {
         const queryResult = await ProductsModel.paginate(queryMongo, { ...queryOptions });
 
         const { docs, ...rest } = queryResult
-        return res.status(200).render("home", { docs, pagination: rest })
+        console.log(sort)
+        return res.status(200).render("home", { docs, sort, query: queryMongo, pagination: rest })
     } catch (err) {
         console.log("error")
     }

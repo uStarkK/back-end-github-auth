@@ -1,4 +1,9 @@
 import multer from "multer";
+import dotenv from "dotenv"
+
+dotenv.config()
+
+const {DB} = process.env
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -23,7 +28,7 @@ export async function connectMongo() {
     try {
         await connect(
             /* PONER TU STRING ENTERO ACA */
-            "mongodb+srv://Nahu22:nahu123@ecommerce.p4croqf.mongodb.net/", {
+            DB, {
             dbName: "ecommerce"
         }
         );

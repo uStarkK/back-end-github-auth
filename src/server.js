@@ -14,7 +14,11 @@ import { productsRouter } from "./routes/products_router.js";
 import { realTimeProducts } from "./routes/RealTimeProducts.js";
 import { sessionsRouter } from "./routes/sessions.router.js";
 import { connectMongo, isAdmin, startSocket, __dirname } from "./utils.js";
+import dotenv from "dotenv"
 
+dotenv.config()
+
+const {DB, SESSION_SECRET} = process.env
 
 
 // SERVER 
@@ -32,8 +36,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(session({
-    store: MongoStore.create({mongoUrl: "mongodb+srv://Nahu22:nahu123@ecommerce.p4croqf.mongodb.net/", ttl: 5000, dbName: "ecommerce"}),
-    secret: "un-re-secreto", 
+    store: MongoStore.create({mongoUrl: DB, ttl: 500000, dbName: "ecommerce"}),
+    secret: SESSION_SECRET, 
     resave: true, 
     saveUninitialized: true}))
 
