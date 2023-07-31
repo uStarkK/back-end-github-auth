@@ -1,13 +1,12 @@
 import express from 'express';
-import { UserService } from '../services/users.service.js';
+import  UserService  from '../services/users.service.js';
 
 export const usersRouter = express.Router();
 
-const Service = new UserService();
 
 usersRouter.get('/', async (req, res) => {
     try {
-        const users = await Service.getAll();
+        const users = await UserService.getAll();
         console.log(users);
         return res.status(200).json({
             status: 'success',
@@ -27,7 +26,7 @@ usersRouter.get('/', async (req, res) => {
 usersRouter.post('/', async (req, res) => {
     try {
         const { firstName, lastName, email } = req.body;
-        const userCreated = await Service.createOne(firstName, lastName, email);
+        const userCreated = await UserService.createOne(firstName, lastName, email);
         return res.status(201).json({
             status: 'success',
             msg: 'user created',
