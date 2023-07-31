@@ -1,6 +1,6 @@
 import { UserModel } from '../DAO/models/users.model.js';
 
-export class UserService {
+class UserService {
     validateUser(firstName, lastName, email) {
         if (!firstName || !lastName || !email) {
             console.log('validation error: please complete firstName, lastname and email.');
@@ -30,3 +30,5 @@ export class UserService {
         return userUptaded;
     }
 }
+
+export default new UserService()

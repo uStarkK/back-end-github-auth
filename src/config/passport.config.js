@@ -6,7 +6,7 @@ import { UserModel } from '../DAO/models/users.model.js';
 import CartService from '../services/CartService.js';
 import { createHash, isValidPassword } from '../utils.js';
 dotenv.config();  // Loads environment variables from .env file
-const { CLIENT_ID, SECRET } = process.env;
+const { CLIENT_ID, CLIENT_SECRET } = process.env;
 const LocalStrategy = local.Strategy;
 
 export function iniPassport() {
@@ -75,8 +75,8 @@ export function iniPassport() {
         new GitHubStrategy(
             {
                 clientID: CLIENT_ID,
-                clientSecret: SECRET,
-                callbackURL: 'http://localhost:8080/api/sessions/githubcallback',
+                clientSecret: CLIENT_SECRET,
+                callbackURL:'http://localhost:8080/api/sessions/githubcallback',
             },
             async (accesToken, _, profile, done) => {
                 console.log(profile);

@@ -28,7 +28,7 @@ export async function connectMongo() {
     try {
         await connect(
             /* PONER TU STRING ENTERO ACA */
-            DB, {
+            "mongodb+srv://Nahu22:nahu123@ecommerce.p4croqf.mongodb.net/", {
             dbName: "ecommerce"
         }
         );

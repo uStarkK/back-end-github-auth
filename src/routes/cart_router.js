@@ -1,8 +1,11 @@
 import express from 'express';
-import { addToCart, createCart, deleteFromCart, getCart, getCartByid, updateCart, updateProductInCart } from '../controllers/cartController.js';
-
-
-
+import { getCart } from '../controllers/cart/getCart.js';
+import { getCartByid } from '../controllers/cart/getCartById.js';
+import { createCart } from '../controllers/cart/createCart.js';
+import { deleteFromCart } from '../controllers/cart/deleteFromCart.js';
+import { updateProductInCart } from '../controllers/cart/updateProductInCart.js';
+import { updateCart } from '../controllers/cart/updateCart.js';
+import { addToCart } from '../controllers/cart/addToCart.js';
 export const cartRouter = express.Router();
 
 
