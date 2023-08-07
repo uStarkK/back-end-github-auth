@@ -2,7 +2,7 @@ import { CartModel } from "../../DAO/models/carts.model.js";
 import { ProductsModel } from "../../DAO/models/products.model.js";
 
 export const addToCart = async (req, res) => {
-    const cartId = req.params.cid;
+    try{const cartId = req.params.cid;
     const productId = req.params.pid;
     const cartFound = await CartModel.findOne({ _id: cartId })
     if (!cartFound) {
@@ -54,4 +54,13 @@ export const addToCart = async (req, res) => {
             data: cart
         })
     }
+}catch (err) {
+    if (err.name === 'ValidationError') {
+        // Handle Mongoose validation errors
+        return res.status(400).json({ error: 'Invalid input' });
+    } else {
+        console.error(err);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+}
 }

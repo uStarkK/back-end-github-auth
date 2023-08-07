@@ -20,11 +20,12 @@ export const getCartByid = async (req, res) => {
             createdAt: cartFound.createdAt
         })
     } catch (err) {
-        if (err instanceof Error) {
-            res.status(400).json({ error: 'Invalid input' });
+        if (err.name === 'ValidationError') {
+            // Handle Mongoose validation errors
+            return res.status(400).json({ error: 'Invalid input' });
         } else {
             console.error(err);
-            res.status(500).json({ error: 'Internal server error' });
+            return res.status(500).json({ error: 'Internal server error' });
         }
     }
 }
