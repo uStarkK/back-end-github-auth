@@ -1,5 +1,5 @@
 import express from 'express';
-import { getCart } from '../controllers/cart/getCart.js';
+import { getCart } from '../controllers/cart/getAllCart.js';
 import { getCartByid } from '../controllers/cart/getCartById.js';
 import { createCart } from '../controllers/cart/createCart.js';
 import { deleteFromCart } from '../controllers/cart/deleteFromCart.js';

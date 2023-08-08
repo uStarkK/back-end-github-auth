@@ -109,3 +109,29 @@ import bcrypt from "bcrypt";
 
 export const createHash = (password) => bcrypt.hashSync(password, bcrypt.genSaltSync(11));
 export const isValidPassword = (password, hashPassword) => bcrypt.compareSync(password, hashPassword)
+
+
+
+//// ERROR HANDLING 
+
+
+export const sendErrorResponse = (res, err) => {
+    if (err.message === 'Cart not found') {
+        return res.status(404).json({
+            status: "Error",
+            msg: "The cart you are looking for does not exist"
+        });
+    }
+    if (err.message === 'Product not found') {
+        return res.status(404).json({
+            status: "Error",
+            msg: "Product does not exist"
+        });
+    }
+    if (err.name === 'ValidationError') {
+        return res.status(400).json({ error: 'Invalid input' });
+    }
+    
+    console.error(err);
+    return res.status(500).json({ error: 'Internal server error' });
+};

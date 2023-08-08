@@ -12,6 +12,9 @@ class CartsService {
 
     async getBydId(cid) {
         const cart = await CartModel.findOne({ _id: cid })
+        if (!cart) {
+            throw new Error("Cart not found");
+        }
         return cart
     }
 
@@ -40,6 +43,14 @@ class CartsService {
     }
 
     async updateProductInCart(cid, pid, data) {
+        const cart = await this.getBydId(cid)
+        if(!cart){
+            throw new Error('Cart not found')
+        }
+        const product = await ProductsModel.find({_id: pid})
+        if(!product){
+            throw new Error('Product not found')
+        }
         const result = await CartModel.findOneAndUpdate(
             {
                 _id: cid,
@@ -93,6 +104,25 @@ class CartsService {
         return quantityUpdated
     }
 
+    async deleteFromCart(cid, pid){
+
+        const cart = await this.getBydId(cid)
+        if(!cart){
+            throw new Error('Cart not found')
+        }
+
+        const product = await ProductsModel.findById({_id: pid})
+        if(!product){
+            throw new Error('Product not found')
+        }
+
+        const result = await CartModel.findOneAndUpdate(
+            { _id: cid },
+            { $pull: { items: { _id: pid } } },
+            { new: true }
+        );
+        console.log(result)
+    }
 
 }
 
