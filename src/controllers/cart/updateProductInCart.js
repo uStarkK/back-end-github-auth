@@ -1,4 +1,3 @@
-import { CartModel } from "../../DAO/models/carts.model.js";
 import { ProductsModel } from "../../DAO/models/products.model.js";
 import CartService from "../../services/CartService.js";
 import { sendErrorResponse } from "../../utils.js";

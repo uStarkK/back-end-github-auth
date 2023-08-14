@@ -6,7 +6,7 @@ export function isUser(req, res, next) {
 }
 
 export function isAdmin(req, res, next) {
-    if (req.session?.isAdmin) {
+    if (req.session?.role === "admin") {
         return next();
     }
     return res.status(403).render('error', { error: 'error de autorización!' });

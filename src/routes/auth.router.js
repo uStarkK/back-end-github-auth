@@ -1,10 +1,9 @@
 import express from 'express';
 import passport from 'passport';
-import { isAdmin, isUser } from '../middlewares/auth.js';
-import { failRegister, register, registerRedirect } from '../controllers/auth/register.js';
 import { failLogin, login, loginRedirect } from '../controllers/auth/login.js';
 import { logout } from '../controllers/auth/logout.js';
 import { profile } from '../controllers/auth/profile.js';
+import { failRegister, register, registerRedirect } from '../controllers/auth/register.js';
 
 export const authRouter = express.Router();
 

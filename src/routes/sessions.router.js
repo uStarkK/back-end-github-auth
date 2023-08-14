@@ -1,5 +1,5 @@
-import passport from 'passport';
 import express from 'express';
+import passport from 'passport';
 export const sessionsRouter = express.Router();
 
 sessionsRouter.get('/github', passport.authenticate('github', { scope: ['user:email'] }));

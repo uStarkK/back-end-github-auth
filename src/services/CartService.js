@@ -59,7 +59,7 @@ class CartsService {
                 }
             },
             {
-                $inc: { 'items.$.quantity': data.quantity }
+                $inc: { 'items.$.quantity': data.quantity || 1 }
             },
             {
                 new: true,
@@ -74,7 +74,7 @@ class CartsService {
             // Item not found, add the product to the cart
             const updatedCart = await CartModel.findOneAndUpdate(
                 { _id: cid },
-                { $push: { items: { productId: pid, quantity: data.quantity } } },
+                { $push: { items: { productId: pid, quantity: data.quantity || 1 } } },
                 { new: true }
             );
             return await updatedCart.save();

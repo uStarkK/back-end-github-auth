@@ -1,4 +1,3 @@
-import { CartModel } from "../../DAO/models/carts.model.js";
 import CartService from "../../services/CartService.js";
 
 export const clearCart = async (req, res) =>{

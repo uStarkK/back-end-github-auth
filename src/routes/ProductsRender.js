@@ -13,10 +13,10 @@ export const productsRender = express.Router();
 
 productsRender.get("/", async (req, res, next) => {
     try {
-        const { limit, page, sort, query } = req.query;
+        const { limit, page, sort, querie } = req.query;
         const queryMongo = {}
-        if (query) {
-            queryMongo.$text = { $search: query }
+        if (querie) {
+            queryMongo.$text = { $search: querie }
         }
         const queryOptions = {
             limit: limit || 5,
@@ -33,6 +33,7 @@ productsRender.get("/", async (req, res, next) => {
 
         const { docs, ...rest } = queryResult
         console.log(sort)
+        console.log(querie)
         return res.status(200).render("home", { docs, sort, query: queryMongo, pagination: rest })
     } catch (err) {
         console.log("error")

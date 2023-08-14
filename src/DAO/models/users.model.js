@@ -1,5 +1,5 @@
 //@ts-check
-import { Schema, model } from 'mongoose';
+import { model, Schema } from 'mongoose';
 import monsoosePaginate from 'mongoose-paginate-v2';
 
 const userSchema = new Schema({

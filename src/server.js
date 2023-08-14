@@ -1,4 +1,5 @@
 import MongoStore from "connect-mongo";
+import dotenv from "dotenv";
 import express from "express";
 import handlebars from "express-handlebars";
 import session from "express-session";
@@ -14,7 +15,6 @@ import { productsRouter } from "./routes/products_router.js";
 import { realTimeProducts } from "./routes/RealTimeProducts.js";
 import { sessionsRouter } from "./routes/sessions.router.js";
 import { connectMongo, isAdmin, startSocket, __dirname } from "./utils.js";
-import dotenv from "dotenv"
 
 dotenv.config()
 
