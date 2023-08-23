@@ -1,21 +1,18 @@
-import { ProductsModel } from "../../DAO/models/products.model.js";
+import { ProductsModel } from "../../DAO/mongo/models/products.model.js";
+import ProductService from "../../services/ProductService.js";
+import { sendErrorResponse } from "../../utils.js";
 
 export const updateProduct = async (req, res) => {
     try {
         const pid = req.params.pid
         const { code, ...updatedProduct } = req.body
-        await ProductsModel.updateOne({ _id: pid }, updatedProduct);
+        const update = await ProductService.updateProduct(pid, updatedProduct);
         return res.json({
             status: "success",
             msg: "product updated",
-            data: updatedProduct
+            data: update
         })
     } catch (err) {
-        if (err instanceof Error) {
-            res.status(400).json({ error: 'Invalid input' });
-        } else {
-            console.error(err);
-            res.status(500).json({ error: 'Internal server error' });
-        }
+        sendErrorResponse(res, err)
     }
 }

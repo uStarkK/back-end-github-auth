@@ -1,20 +1,16 @@
-import { ProductsModel } from "../../DAO/models/products.model.js";
+import ProductService from "../../services/ProductService.js";
+import { sendErrorResponse } from "../../utils.js";
 
 export const createProduct = async (req, res) => {
     try {
         let newProduct = req.body;
-        const productCreated = await ProductsModel.create(newProduct)
+        const productCreated = await ProductService.createOne(newProduct)
         return res.json({
             status: "success",
             msg: "Product created",
             data: productCreated
         })
     } catch (err) {
-        if (err instanceof Error) {
-            res.status(400).json({ error: 'Invalid input' });
-        } else {
-            console.error(err);
-            res.status(500).json({ error: 'Internal server error' });
-        }
+        sendErrorResponse(res, err)
     }
 }

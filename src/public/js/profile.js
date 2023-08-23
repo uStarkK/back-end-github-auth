@@ -4,7 +4,7 @@ if (!sessionStorage.getItem("cart")) {
     fetch("http://localhost:8080/api/sessions/current", { method: 'GET' })
         .then(response => response.json())
         .then(data => {
-            cartId = data.user.cartId._id
+            cartId = data.user.cart._id
             sessionStorage.setItem("cart", cartId)
             console.log(cartId)
             return cartId

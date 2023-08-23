@@ -1,4 +1,6 @@
-import { ProductsModel } from "../../DAO/models/products.model.js";
+
+import ProductService from "../../services/ProductService.js";
+import { sendErrorResponse } from "../../utils.js";
 
 export const getProduct = async (req, res) => {
     try {
@@ -20,7 +22,7 @@ export const getProduct = async (req, res) => {
                 price: sort
             }
         }
-        const queryResult = await ProductsModel.paginate(queryMongo, { ...pagination });
+        const queryResult = await ProductService.getAll(queryMongo, pagination)
         const sortParam = sort ? `&sort=${sort}` : "";
         const queryParam = query ? `&query=${query}` : ""
         const { docs, totalDocs, pagingCounter, ...rest } = queryResult
@@ -46,11 +48,6 @@ export const getProduct = async (req, res) => {
             paginationLinks: paginationLinks
         })
     } catch (err) {
-        if (err instanceof Error) {
-            res.status(400).json({ error: 'Invalid input' });
-        } else {
-            console.error(err);
-            res.status(500).json({ error: 'Internal server error' });
-        }
+        sendErrorResponse(res, err)
     }
 }

@@ -1,4 +1,4 @@
-import { ProductsModel } from "../../DAO/models/products.model.js";
+import { ProductsModel } from "../../DAO/mongo/models/products.model.js";
 import CartService from "../../services/CartService.js";
 import { sendErrorResponse } from "../../utils.js";
 

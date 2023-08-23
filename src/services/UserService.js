@@ -1,5 +1,5 @@
 import { UserModel } from '../DAO/models/users.model.js';
-
+import UsersDAO from '../DAO/mongo/UsersDAO.js';
 class UserService {
     validateUser(firstName, lastName, email) {
         if (!firstName || !lastName || !email) {
@@ -8,7 +8,7 @@ class UserService {
         }
     }
     async getAll() {
-        const users = await UserModel.find({});
+        const users = await UsersDAO.fetchAllUsers()
         return users;
     }
 
@@ -18,16 +18,16 @@ class UserService {
         return userCreated;
     }
 
-    async deletedOne(_id) {
-        const deleted = await UserModel.deleteOne({ _id: _id });
+    async deletedOne(uid) {
+        const deleted = await UserModel.deleteOne({ _id: uid });
         return deleted;
     }
 
-    async updateOne(_id, firstName, lastName, email) {
-        if (!_id) throw new Error('invalid _id');
+    async updateOne(uid, firstName, lastName, email) {
+        if (!uid) throw new Error('invalid _id');
         this.validateUser(firstName, lastName, email);
-        const userUptaded = await UserModel.updateOne({ _id: id }, { firstName, lastName, email });
-        return userUptaded;
+        const userUpdated = await UserModel.updateOne({ _id: id }, { firstName, lastName, email });
+        return userUpdated;
     }
 }
 

@@ -1,27 +1,31 @@
 import express from 'express';
 import { addToCart } from '../controllers/cart/addToCart.js';
+import { clearCart } from '../controllers/cart/clearCart.js';
 import { createCart } from '../controllers/cart/createCart.js';
 import { deleteFromCart } from '../controllers/cart/deleteFromCart.js';
 import { getCart } from '../controllers/cart/getAllCart.js';
 import { getCartByid } from '../controllers/cart/getCartById.js';
 import { updateCart } from '../controllers/cart/updateCart.js';
 import { updateProductInCart } from '../controllers/cart/updateProductInCart.js';
+import { isUser } from '../middlewares/auth.js';
 export const cartRouter = express.Router();
-
 
 cartRouter.get('/', getCart);
 
-cartRouter.get("/:cid", getCartByid)
+cartRouter.get("/:cid", isUser, getCartByid)
 
-cartRouter.post("/", createCart)
 
-cartRouter.post("/:cid/products/:pid", addToCart)
+cartRouter.post("/", isUser, createCart)
 
-cartRouter.delete("/:cid/products/:pid", deleteFromCart)
+cartRouter.post("/:cid/products/:pid", isUser, addToCart)
 
-cartRouter.put("/:cid/products/:pid", updateProductInCart)
+cartRouter.delete("/:cid/products/:pid", isUser, deleteFromCart)
 
-cartRouter.put("/:cid", updateCart)
+cartRouter.put("/:cid/products/:pid", isUser, updateProductInCart)
+
+cartRouter.put("/:cid", isUser, updateCart)
+
+cartRouter.put("/:cid/purchase", isUser, clearCart)
 
 cartRouter.get("*", (req, res, next) => {
     res.status(404).json({ status: "error", msg: "Route not found", data: {} })

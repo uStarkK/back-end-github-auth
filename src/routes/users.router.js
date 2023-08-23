@@ -1,10 +1,9 @@
 import express from 'express';
+import { isAdmin, isUser } from '../middlewares/auth.js';
 import UserService from '../services/users.service.js';
-
 export const usersRouter = express.Router();
 
-
-usersRouter.get('/', async (req, res) => {
+usersRouter.get('/', isUser, isAdmin, async (req, res) => {
     try {
         const users = await UserService.getAll();
         console.log(users);

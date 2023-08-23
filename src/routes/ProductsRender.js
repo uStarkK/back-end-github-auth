@@ -1,5 +1,5 @@
 import express from 'express';
-import { ProductsModel } from '../DAO/models/products.model.js';
+import { ProductsModel } from '../DAO/mongo/models/products.model.js';
 
 
 
@@ -13,10 +13,10 @@ export const productsRender = express.Router();
 
 productsRender.get("/", async (req, res, next) => {
     try {
-        const { limit, page, sort, querie } = req.query;
+        const { limit, page, sort, query } = req.query;
         const queryMongo = {}
-        if (querie) {
-            queryMongo.$text = { $search: querie }
+        if (query) {
+            queryMongo.$text = { $search: query }
         }
         const queryOptions = {
             limit: limit || 5,
@@ -30,18 +30,15 @@ productsRender.get("/", async (req, res, next) => {
             queryOptions.sort = {};
         }
         const queryResult = await ProductsModel.paginate(queryMongo, { ...queryOptions });
-
         const { docs, ...rest } = queryResult
-        console.log(sort)
-        console.log(querie)
-        return res.status(200).render("home", { docs, sort, query: queryMongo, pagination: rest })
+        return res.status(200).render("home", { docs, sort, query, pagination: rest })
     } catch (err) {
         console.log("error")
     }
 })
 
 
-productsRender.get("/:pid", async (req, res) => {
+productsRender.get("/products/:pid", async (req, res) => {
     try {
         const productId = req.params.pid;
 

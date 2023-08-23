@@ -6,10 +6,16 @@
             let link = document.createElement('a');
             console.log(cartId)
             // Set the href attribute
-            link.href =  `/carts/${cartId}`;
+            if(cartId){
+                link.href =  `/carts/${cartId}`;
+                link.innerText = 'Go to cart';
+            }else{
+                link.href = `/auth/login`
+                link.innerText = 'Log in to see your cart!';
+            }
 
             // Set the link text
-            link.innerText = 'Go to cart';
+            
 
             // Appends the element to "goToCart" id. In this case, a div acting as a container
             let container = document.getElementById('goToCart');
@@ -21,7 +27,12 @@
         <a href="/auth/profile">My Profile</a>
     </div>
     Page:{{pagination.page}} / {{pagination.totalPages}}
-    {{sort}}
+    <div>
+        <h2 >Filtrar por precio:</h2>
+    <a href="?page=1&limit={{pagination.limit}}&sort=asc&query={{query}}" style="text-decoration: none; color:blue"> ↑↑ </a>
+    <a href="?page=1&limit={{pagination.limit}}&sort=desc&query={{query}}" style="text-decoration: none; color:blue"> ↓↓ </a>
+    <a href="?page=1&limit={{pagination.limit}}&sort=&query={{query}}" style="text-decoration: none; color:blue"> No filtrar </a>
+    </div>
     {{#if docs}}
     <div style="display: flex; flex-wrap: wrap; justify-content: space-evenly;">
         {{#each docs}}
@@ -66,7 +77,7 @@
         <div style="display: flex;
     justify-content: space-evenly;
     width: 17%;">
-            <a href="?page=1&limit={{pagination.limit}}&sort={{sort}}"> «« </a>
+            <a href="?page=1&limit={{pagination.limit}}&sort={{sort}}&query={{query}}"> «« </a>
             {{#if pagination.prevPage}}
             <a href="?page={{pagination.prevPage}}&limit={{pagination.limit}}&sort={{sort}}&query={{query}}">Prev </a>
             {{/if}}

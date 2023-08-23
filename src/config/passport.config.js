@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import passport from 'passport';
 import GitHubStrategy from "passport-github2";
 import local from 'passport-local';
-import { UserModel } from '../DAO/models/users.model.js';
+import { UserModel } from '../DAO/mongo/models/users.model.js';
 import CartService from '../services/CartService.js';
 import { createHash, isValidPassword } from '../utils.js';
 dotenv.config();  // Loads environment variables from .env file

@@ -39,7 +39,7 @@ try {
         productListContainer.innerHTML += li
     })
 
-    socket.on('product:deleted', (id) => {
+    socket.on('product:deleted', (product) => {
         const li = document.createElement('li');
         li.setAttribute('data-product-id', product.id);
         li.remove()

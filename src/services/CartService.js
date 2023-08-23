@@ -1,17 +1,20 @@
-import { CartModel } from "../DAO/models/carts.model.js";
-import { ProductsModel } from "../DAO/models/products.model.js";
+
+import CartsDAO from "../DAO/mongo/CartsDAO.js";
+import { ProductsModel } from "../DAO/mongo/models/products.model.js";
+import { generateUniqueCode } from "../utils.js";
+import ProductService from "./ProductService.js"
+import TicketService from "./TicketService.js";
 
 class CartsService {
-    async getAll(limit = null) {
+    async getAll() {
         try {
-            return await CartModel.find({}).limit(limit).lean()
+            return await CartsDAO.fetchAllCarts()
         } catch {
             return []
         }
     }
-
-    async getBydId(cid) {
-        const cart = await CartModel.findOne({ _id: cid })
+    async getById(cid) {
+        const cart = await CartsDAO.fetchCartById(cid)
         if (!cart) {
             throw new Error("Cart not found");
         }
@@ -19,17 +22,79 @@ class CartsService {
     }
 
     async assignCart() {
-        return await CartModel.create({})
+        return await CartsDAO.assignCart()
+    }
+
+    async saveCart(cid) {
+        return await CartsDAO.saveCart(cid)
     }
 
     async clearCart(cid) {
-        const cartFound = await this.getBydId(cid)
+        const cartFound = await this.getById(cid)
         cartFound.items = [];
-        await cartFound.save()
+        await this.saveCart(cid)
     }
+
+    async clearCartAfterPurchase(cid, purchaser) {
+        const cart = await this.getById(cid);
+        const itemsToPurchase = [];
+        const itemsToKeep = [];
+        let totalAmount = 0;
+        for (const item of cart.items) {
+            const product = await ProductService.getById(item.productId);
+            if (product.stock >= item.quantity) {
+                itemsToPurchase.push({
+                    productId: product._id,
+                    name: product.title,
+                    quantity: item.quantity,
+                    price: product.price,
+                    subtotal: product.price * item.quantity
+                });
+                totalAmount += product.price * item.quantity;
+
+                product.stock -= item.quantity;
+                await ProductService.updateProduct(product._id, product)
+            } else {
+                itemsToKeep.push(item);
+            }
+
+        }
+        if(!itemsToPurchase[0]){
+            throw new Error("No items available for purchase")
+        }
+        
+        const ticket = await TicketService.createOne({
+            code: await generateUniqueCode(),
+            amount: totalAmount,
+            purchaser
+        })
+        if (itemsToKeep[0]) {
+            // Update the cart by removing purchased items
+            const updatedCart = await CartsDAO.fetchAndUpdate(
+                { _id: cid },
+                { $set: { items: itemsToKeep } }
+            )
+            return {
+                updatedCart,
+                itemsToPurchase,
+                ticket
+            };
+        } else {
+            await CartsDAO.fetchAndUpdate(
+                { _id: cid },
+                { $set: { items: [] } }
+            )
+            return {
+                itemsToPurchase,
+                ticket
+            }
+        }
+    }
+
+
     async addProductToCart(cid, pid) {
         const product = await ProductsModel.findOne({ _id: pid }).lean()
-        const cart = await this.getBydId(cid)
+        const cart = await this.getById(cid)
         const productIndex = cart.items.findIndex(ele => ele.items._id.toString() === pid)
 
         if (productIndex === -1) {
@@ -38,20 +103,19 @@ class CartsService {
                 productId: product._id,
                 quantity: 1
             })
-            return await cart.save()
         }
     }
 
     async updateProductInCart(cid, pid, data) {
-        const cart = await this.getBydId(cid)
-        if(!cart){
+        const cart = await this.getById(cid)
+        if (!cart) {
             throw new Error('Cart not found')
         }
-        const product = await ProductsModel.find({_id: pid})
-        if(!product){
+        const product = await ProductsModel.find({ _id: pid })
+        if (!product) {
             throw new Error('Product not found')
         }
-        const result = await CartModel.findOneAndUpdate(
+        const result = await CartsDAO.fetchAndUpdate(
             {
                 _id: cid,
                 items: {
@@ -60,10 +124,6 @@ class CartsService {
             },
             {
                 $inc: { 'items.$.quantity': data.quantity || 1 }
-            },
-            {
-                new: true,
-                runValidators: true
             }
         );
 
@@ -71,32 +131,33 @@ class CartsService {
             // Quantity of existing item modified
             return result;
         } else {
-            // Item not found, add the product to the cart
-            const updatedCart = await CartModel.findOneAndUpdate(
+            // Item not found, add product to cart
+            const updatedCart = await CartsDAO.fetchAndUpdate(
                 { _id: cid },
-                { $push: { items: { productId: pid, quantity: data.quantity || 1 } } },
-                { new: true }
+                { $push: { items: { productId: pid, quantity: data.quantity || 1 } } }
             );
-            return await updatedCart.save();
+            return updatedCart
         }
     }
 
     async updateCart(cid, data) {
-        let cartFound = await this.getBydId(cid)
+        let cartFound = await this.getById(cid)
         await this.clearCart(cid)
         for (const item of data) {
             const productFound = await ProductsModel.findOne({ _id: item.productId });
             if (!productFound) {
                 throw new Error("Product not found");
             }
-            cartFound = await CartModel.findOneAndUpdate(
+            if (productFound.stock === 0) {
+                throw new Error("Not enough stock")
+            }
+            cartFound = await CartsDAO.fetchAndUpdate(
                 { _id: cid },
-                { $push: { items: { productId: productFound._id, quantity: item.quantity || 1 } } },
-                { new: true }
+                { $push: { items: { productId: productFound._id, quantity: item.quantity || 1 } } }
             );
 
         }
-        await cartFound.save()
+        await this.saveCart(cartFound._id)
         const quantityUpdated = cartFound.items.map((item) => ({
             productId: item.productId._id,
             quantity: item.quantity
@@ -104,24 +165,22 @@ class CartsService {
         return quantityUpdated
     }
 
-    async deleteFromCart(cid, pid){
+    async deleteFromCart(cid, pid) {
 
-        const cart = await this.getBydId(cid)
-        if(!cart){
+        const cart = await this.getById(cid)
+        if (!cart) {
             throw new Error('Cart not found')
         }
 
-        const product = await ProductsModel.findById({_id: pid})
-        if(!product){
+        const product = await ProductsModel.findById({ _id: pid })
+        if (!product) {
             throw new Error('Product not found')
         }
 
-        const result = await CartModel.findOneAndUpdate(
+        const result = await CartsDAO.fetchAndUpdate(
             { _id: cid },
-            { $pull: { items: { _id: pid } } },
-            { new: true }
+            { $pull: { items: { productId: pid } } }
         );
-        console.log(result)
     }
 
 }

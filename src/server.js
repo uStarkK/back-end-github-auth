@@ -14,20 +14,16 @@ import { productsRender } from "./routes/ProductsRender.js";
 import { productsRouter } from "./routes/products_router.js";
 import { realTimeProducts } from "./routes/RealTimeProducts.js";
 import { sessionsRouter } from "./routes/sessions.router.js";
-import { connectMongo, isAdmin, startSocket, __dirname } from "./utils.js";
+import { connectMongo, startSocket, __dirname } from "./utils.js";
 
 dotenv.config()
 
-const {DB, SESSION_SECRET} = process.env
+const { DB, SESSION_SECRET } = process.env
 
 // SERVER 
 const PORT = 8080
 const app = express()
 
-const httpServer = app.listen(PORT, () => {console.log(`Server on! Listening on localhost:${PORT}`)})
-
-connectMongo();
-startSocket(httpServer)
 
 
 app.use(express.json());
@@ -35,10 +31,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(session({
-    store: MongoStore.create({mongoUrl:DB, ttl: 500000, dbName: "ecommerce"}),
-    secret: SESSION_SECRET, 
-    resave: true, 
-    saveUninitialized: true}))
+    store: MongoStore.create({ mongoUrl: DB, ttl: 500000, dbName: "ecommerce" }),
+    secret: SESSION_SECRET,
+    resave: true,
+    saveUninitialized: true
+}))
 
 // PASSPORT
 iniPassport();
@@ -57,11 +54,11 @@ app.use("/api/carts", cartRouter)
 
 // HTML RENDER
 app.use('/api/sessions', sessionsRouter);
-app.use("/products", productsRender)
+app.use("/", productsRender)
 app.use("/carts", cartRender)
 app.use("/auth", authRouter)
 // SOCKETS ROUTE
-app.use("/realTimeProducts", isAdmin, realTimeProducts)
+app.use("/realTimeProducts", realTimeProducts)
 app.use("/chat", testChat)
 
 
@@ -72,4 +69,15 @@ app.get("*", (req, res, next) => {
 
 
 
+async function start() {
+    try {
+        const httpServer = app.listen(PORT, () => { console.log(`Server on! Listening on localhost:${PORT}`) })
+        await connectMongo()
+        await startSocket(httpServer)
+    } catch (err) {
+        console.error(err)
+        process.exit(1)
+    }
+}
 
+start()

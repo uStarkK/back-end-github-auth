@@ -5,7 +5,7 @@
             let link = document.createElement('a');
 
             // Set the href attribute
-            link.href = `/products`;
+            link.href = `/`;
 
             // Set the link text
             link.innerText = 'Go back to shopping';
@@ -30,6 +30,7 @@
     padding-bottom: 1%;
     margin-right: 3%;">
             <div>
+                <h5 onclick="deleteFromCart(`{{this.productId._id}}`)">X</h5>
                 <h1>
                     {{this.productId.title}}
                 </h1>
@@ -45,6 +46,10 @@
             </div>
         </div>
         {{/each}}
+    </div>
+    <div>
+        <script src="/js/cart.js"></script>
+        <button onclick="finishPurchase()">Finish Purchasing</button>
     </div>
     {{else}}
     Your cart is empty!
