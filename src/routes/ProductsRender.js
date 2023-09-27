@@ -33,7 +33,7 @@ productsRender.get("/", async (req, res, next) => {
         const { docs, ...rest } = queryResult
         return res.status(200).render("home", { docs, sort, query, pagination: rest })
     } catch (err) {
-        console.log("error")
+        req.logger.error("error")
     }
 })
 
@@ -46,6 +46,6 @@ productsRender.get("/products/:pid", async (req, res) => {
         const {title, price, desc, stock, category, _id} = product
         return res.status(200).render("viewProduct", {title, price, desc, stock, category, id: _id})
     } catch (err) {
-        console.log(err)
+        req.logger.error(err)
     }
 })

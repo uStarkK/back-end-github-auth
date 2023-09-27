@@ -11,9 +11,9 @@ cartRender.get("/:cid", isUser, async (req, res) =>{
         const cartId = req.params.cid;
         const cart = await CartModel.findOne({ _id: cartId}).lean().exec();
         const { items, createdAt} = cart
-        /* console.log(items) */
+        
         res.render("cartView", {items, createdAt})
     }catch (err) {
-        console.log(err)
+        req.logger.error(err)
     }
 })

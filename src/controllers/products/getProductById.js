@@ -1,6 +1,6 @@
 import { ProductsModel } from "../../DAO/mongo/models/products.model.js";
 import ProductService from "../../services/ProductService.js";
-import { sendErrorResponse } from "../../utils.js";
+import { sendErrorResponse } from "../../Utils/utils.js";
 export const getProductByid = async (req, res) => {
     try {
         const pid = (req.params.pid);

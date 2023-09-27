@@ -1,4 +1,7 @@
 import ProductsDAO from "../DAO/mongo/ProductsDAO.js";
+import CustomError from "./errorHandling/CustomError.js";
+import HandledErrors from "./errorHandling/ErrorCode.js";
+import {getErrorCause} from "./errorHandling/info.js";
 
 
 
@@ -14,7 +17,12 @@ class ProductService {
     async getById(pid) {
         const product =  await ProductsDAO.fetchById(pid)
         if(!product){
-            throw new Error("Product does not exist")
+            CustomError.createError({
+                name: "Product not found",
+                cause: getErrorCause(this.name),
+                msg: "An error occurred while trying to find the requested product",
+                code: HandledErrors.RESOURCE_NOT_FOUND_ERROR
+            })
         }
         return product
     }

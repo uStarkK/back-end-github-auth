@@ -11,7 +11,12 @@ class TicketService{
     async getById(tid){ 
         const ticket = await TicketsDAO.fetchOne(tid)
         if(!ticket){
-            throw new Error("Ticket not found")
+            CustomError.createError({
+                name: "Ticket not found",
+                cause: getErrorCause(this.name),
+                msg: "An error occurred while trying to find the requested ticket",
+                code: HandledErrors.RESOURCE_NOT_FOUND_ERROR
+            })
         }
         return ticket
     }

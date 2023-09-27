@@ -4,7 +4,7 @@ import GitHubStrategy from "passport-github2";
 import local from 'passport-local';
 import { UserModel } from '../DAO/mongo/models/users.model.js';
 import CartService from '../services/CartService.js';
-import { createHash, isValidPassword } from '../utils.js';
+import { createHash, isValidPassword } from '../Utils/utils.js';
 dotenv.config();  // Loads environment variables from .env file
 const { CLIENT_ID, CLIENT_SECRET } = process.env;
 const LocalStrategy = local.Strategy;
@@ -43,7 +43,7 @@ export function iniPassport() {
                     const { email, firstName, lastName, age } = req.body;
                     let user = await UserModel.findOne({ email: username });
                     if (user) {
-                        console.log('User already exists');
+                        req.logger.info('User already exists');
                         return done(null, false);
                     }
 
@@ -58,12 +58,12 @@ export function iniPassport() {
                     };
                 
                     let userCreated = await UserModel.create(newUser);
-                    console.log(userCreated);
-                    console.log('User Registration succesful');
+                    req.logger.debug(userCreated);
+                    req.logger.info('User Registration succesful');
                     return done(null, userCreated);
                 } catch (e) {
-                    console.log('Error in register');
-                    console.log(e);
+                    req.logger.error('Error in register');
+                    req.logger.error(e);
                     return done(e);
                 }
             }
@@ -79,7 +79,7 @@ export function iniPassport() {
                 callbackURL:'http://localhost:8080/api/sessions/githubcallback',
             },
             async (accesToken, _, profile, done) => {
-                console.log(profile);
+                
                 try {
                     const res = await fetch('https://api.github.com/user/emails', {
                         headers: {
@@ -88,6 +88,7 @@ export function iniPassport() {
                             'X-Github-Api-Version': '2022-11-28',
                         },
                     });
+                    
                     const emails = await res.json();
                     const emailDetail = emails.find((email) => email.verified == true);
 
@@ -112,12 +113,13 @@ export function iniPassport() {
 
                         // Finds the user document in the database and sets password to null
                         try {
+                            
                             const user = await UserModel.findOneAndUpdate(
                                 { email: newUser.email },
                                 { $set: { password: null, lastName: null } },
                                 { new: true, upsert: true }
                             );
-                            /* console.log(user); */
+                            
                         } catch (err) {
                             // Handle the error
                             console.error(err);

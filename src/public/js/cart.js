@@ -29,4 +29,7 @@ function deleteFromCart(pid) {
         // Handle any errors
         console.error(error);
     });
+    location.reload();
+    return false;
 }
+

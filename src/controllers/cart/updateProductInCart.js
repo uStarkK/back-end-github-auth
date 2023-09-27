@@ -1,6 +1,6 @@
 import { ProductsModel } from "../../DAO/mongo/models/products.model.js";
 import CartService from "../../services/CartService.js";
-import { sendErrorResponse } from "../../utils.js";
+import { sendErrorResponse } from "../../Utils/utils.js";
 
 export const updateProductInCart = async (req, res) => {
     try {

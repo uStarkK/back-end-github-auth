@@ -1,6 +1,5 @@
 
 
-
 export const registerRedirect = (req, res) => {
     if (req.user) {                           //If user is ALREADY logged in, redirects to profile
         return res.redirect("/auth/profile")

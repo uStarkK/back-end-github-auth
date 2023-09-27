@@ -7,7 +7,7 @@ export const profile = (req, res) => {
     }
     const user = req.user
     const formattedUser = new userDTO(user)
-    console.log(formattedUser)
+    req.logger.debug(formattedUser)
     req.session.user = formattedUser
     return res.render('profile', { user: formattedUser });
 

@@ -6,21 +6,21 @@
             let link = document.createElement('a');
             console.log(cartId)
             // Set the href attribute
-            if(cartId){
-                link.href =  `/carts/${cartId}`;
+            if (cartId) {
+                link.href = `/carts/${cartId}`;
                 link.innerText = 'Go to cart';
-            }else{
+            } else {
                 link.href = `/auth/login`
                 link.innerText = 'Log in to see your cart!';
             }
 
             // Set the link text
-            
+
 
             // Appends the element to "goToCart" id. In this case, a div acting as a container
             let container = document.getElementById('goToCart');
-            container.appendChild(link);    
-            
+            container.appendChild(link);
+
         </script>
     </div>
     <div>
@@ -28,10 +28,13 @@
     </div>
     Page:{{pagination.page}} / {{pagination.totalPages}}
     <div>
-        <h2 >Filtrar por precio:</h2>
-    <a href="?page=1&limit={{pagination.limit}}&sort=asc&query={{query}}" style="text-decoration: none; color:blue"> ↑↑ </a>
-    <a href="?page=1&limit={{pagination.limit}}&sort=desc&query={{query}}" style="text-decoration: none; color:blue"> ↓↓ </a>
-    <a href="?page=1&limit={{pagination.limit}}&sort=&query={{query}}" style="text-decoration: none; color:blue"> No filtrar </a>
+        <h2>Filtrar por precio:</h2>
+        <a href="?page=1&limit={{pagination.limit}}&sort=asc&query={{query}}" style="text-decoration: none; color:blue">
+            ↑↑ </a>
+        <a href="?page=1&limit={{pagination.limit}}&sort=desc&query={{query}}"
+            style="text-decoration: none; color:blue"> ↓↓ </a>
+        <a href="?page=1&limit={{pagination.limit}}&sort=&query={{query}}" style="text-decoration: none; color:blue"> No
+            filtrar </a>
     </div>
     {{#if docs}}
     <div style="display: flex; flex-wrap: wrap; justify-content: space-evenly;">
@@ -48,21 +51,15 @@
     padding-bottom: 1%;
     margin-right: 3%;">
             <a href="/products/{{this._id}}" style="text-decoration: none; color:black">
-                <div>
-                    <h1>
-                        {{this.title}}
-                    </h1>
-                    <h2>
-                        ${{this.price}}
-                    </h2>
-                    <h2>
-                        Stock:{{this.stock}}
-                    </h2>
-                    <h2>
-                        Category: {{this.category}}
-                    </h2>
-                </div>
+                <h3>{{ this.title }}</h3>
             </a>
+            <div>
+                <p>Price: ${{ this.price }}</p>
+                <p>Stock: {{this.stock}}</p>
+                <input type="number" class="quantity-input" min="1" value="1" max="{{this.stock}}"
+                    data-product-id="{{ product._id }}">
+            </div>
+
             <button onclick="addProductToCart(`{{this.id}}`)">Add to cart</button>
         </div>
 

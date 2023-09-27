@@ -6,6 +6,7 @@ import session from "express-session";
 import passport from "passport";
 import path from "path";
 import { iniPassport } from "./config/passport.config.js";
+import errorHandler from "./middlewares/error.js";
 import { authRouter } from "./routes/auth.router.js";
 import { cartRender } from "./routes/cartRender.js";
 import { cartRouter } from "./routes/cart_router.js";
@@ -14,7 +15,9 @@ import { productsRender } from "./routes/ProductsRender.js";
 import { productsRouter } from "./routes/products_router.js";
 import { realTimeProducts } from "./routes/RealTimeProducts.js";
 import { sessionsRouter } from "./routes/sessions.router.js";
-import { connectMongo, startSocket, __dirname } from "./utils.js";
+import { connectMongo, startSocket, __dirname } from "./Utils/utils.js";
+import { fakeData } from "./routes/faker.router.js";
+import { addLogger } from "./Utils/logger.js";
 
 dotenv.config()
 
@@ -25,7 +28,7 @@ const PORT = 8080
 const app = express()
 
 
-
+app.use(addLogger)
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
@@ -57,17 +60,29 @@ app.use('/api/sessions', sessionsRouter);
 app.use("/", productsRender)
 app.use("/carts", cartRender)
 app.use("/auth", authRouter)
+app.use("/mockingproducts", fakeData)
 // SOCKETS ROUTE
 app.use("/realTimeProducts", realTimeProducts)
 app.use("/chat", testChat)
 
 
 
+app.get("/loggertest", (req, res) =>{
+    req.logger.debug("This is a debug message");
+    req.logger.http("This is an http message");
+    req.logger.info("This is an info message")
+    req.logger.warn("Hello! I'm an alert");
+    req.logger.error("Hi! I'm an error");
+    req.logger.fatal("I'm a fatal error! Good luck!");
+    res.send("Prueba logger")
+})
+
+
 app.get("*", (req, res, next) => {
     res.status(404).json({ status: "error", msg: "Route not found", data: {} })
 })
 
-
+app.use(errorHandler)
 
 async function start() {
     try {

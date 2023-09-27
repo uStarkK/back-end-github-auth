@@ -6,14 +6,14 @@ export const usersRouter = express.Router();
 usersRouter.get('/', isUser, isAdmin, async (req, res) => {
     try {
         const users = await UserService.getAll();
-        console.log(users);
+        req.logger.debug(users);
         return res.status(200).json({
             status: 'success',
             msg: 'users list',
             data: users,
         });
     } catch (e) {
-        console.log(e);
+        req.logger.error(e);
         return res.status(500).json({
             status: 'error',
             msg: 'something went wrong :(',
@@ -22,24 +22,6 @@ usersRouter.get('/', isUser, isAdmin, async (req, res) => {
     }
 });
 
-usersRouter.post('/', async (req, res) => {
-    try {
-        const { firstName, lastName, email } = req.body;
-        const userCreated = await UserService.createOne(firstName, lastName, email);
-        return res.status(201).json({
-            status: 'success',
-            msg: 'user created',
-            data: userCreated,
-        });
-    } catch (e) {
-        console.log(e);
-        return res.status(500).json({
-            status: 'error',
-            msg: 'something went wrong :(',
-            data: {},
-        });
-    }
-});
 
 usersRouter.delete('/:id', async (req, res) => {
     try {
@@ -49,7 +31,7 @@ usersRouter.delete('/:id', async (req, res) => {
             data: {},
         });
     } catch (e) {
-        console.log(e);
+        req.logger.error(e);
         return res.status(500).json({
             status: 'error',
             msg: 'something went wrong :(',
@@ -68,7 +50,7 @@ usersRouter.put('/:id', async (req, res) => {
             data: { _id: id, firstName, lastName, email },
         });
     } catch (e) {
-        console.log(e);
+        req.logger.error(e);
         return res.status(500).json({
             status: 'error',
             msg: 'something went wrong :(',

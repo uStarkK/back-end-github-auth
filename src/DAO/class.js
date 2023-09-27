@@ -21,7 +21,7 @@ export class ProductManager {
         }
 
         catch (e) {
-            console.log(e)
+            req.logger.error(e)
             throw new Error("Something went wrong, oops", e)
         }
     }
@@ -38,7 +38,7 @@ export class ProductManager {
             return obj
         }
         catch (e) {
-            console.log(e)
+            req.logger.error(e)
             throw new Error("Something went wrong, oops", e)
         }
     }
@@ -48,7 +48,7 @@ export class ProductManager {
         try {
             const data = await this.getAll()
             const obj = data.find(element => element.id == id)
-            console.log(id)
+            req.logger.error(id)
             if (!obj) {
                 return "The specified id does not belong to any existing product. Either the id is wrong or the product does not exist"
             } else {
@@ -58,7 +58,7 @@ export class ProductManager {
             }
         }
         catch (e) {
-            console.log(e)
+            req.logger.error(e)
             throw new Error("Something went wrong, oops", e)
         }
     }
@@ -86,7 +86,7 @@ export class ProductManager {
                 await fs.promises.writeFile(this.path, JSON.stringify(read, null, 4), "utf-8");
             }
         } catch (e) {
-            console.log(e)
+            req.logger.error(e)
             throw new Error("Something went wrong, oops", e)
         }
     }
@@ -96,7 +96,7 @@ export class ProductManager {
         try {
             await fs.promises.writeFile(this.path, JSON.stringify([], null, 4), "utf-8")
         } catch (e) {
-            console.log(e)
+            req.logger.error(e)
             throw new Error("Something went wrong, oops", e)
         }
     }
@@ -126,7 +126,7 @@ export class CartManager {
         }
 
         catch (e) {
-            console.log(e)
+            req.logger.error(e)
             throw new Error("Something went wrong, oops", e)
         }
     }
@@ -141,7 +141,7 @@ export class CartManager {
             return obj
         }
         catch (e) {
-            console.log(e)
+            req.logger.error(e)
             throw new Error("Something went wrong, oops", e)
         }
     }
@@ -155,7 +155,7 @@ export class CartManager {
             const productFound = Object.assign({}, { id: dataProducts.find(ele => ele.id == productId).id })
             const cartProducts = cart.products
             if (cartProducts.find(ele => ele.id == productFound.id)) {
-                console.log(productFound)
+                req.logger.debug(productFound)
                 productFound.quantity++
                 cartProducts.find(ele => ele.id == productFound.id).quantity++
                 await fs.promises.writeFile(this.path, JSON.stringify(dataCarts, null, 4), "utf-8");
@@ -167,7 +167,7 @@ export class CartManager {
 
         }
         catch (e) {
-            console.log(e)
+            req.logger.error(e)
             throw new Error("Something went wrong, oops", e)
         }
     }
@@ -192,7 +192,7 @@ export class CartManager {
                 await fs.promises.writeFile(this.path, JSON.stringify(read, null, 4), "utf-8")
             }
         } catch (e) {
-            console.log(e)
+            req.logger.error(e)
             throw new Error("Something went wrong, oops", e)
         }
     }
@@ -201,7 +201,7 @@ export class CartManager {
         try {
             await fs.promises.writeFile(this.path, JSON.stringify([], null, 4), "utf-8")
         } catch (e) {
-            console.log(e)
+            req.logger.error(e)
             throw new Error("Something went wrong, oops", e)
         }
     }

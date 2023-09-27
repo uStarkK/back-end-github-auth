@@ -18,6 +18,6 @@ export const login = async (req, res) => {
 
 //If login fails, sends error message
 export const failLogin = async (req, res) => {
-    console.log("Failed to login, invalid credentials")
+    req.logger.error("Failed to login, invalid credentials")
     return res.redirect("/auth/login")
 }

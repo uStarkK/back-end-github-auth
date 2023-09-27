@@ -3,8 +3,12 @@ import UsersDAO from '../DAO/mongo/UsersDAO.js';
 class UserService {
     validateUser(firstName, lastName, email) {
         if (!firstName || !lastName || !email) {
-            console.log('validation error: please complete firstName, lastname and email.');
-            throw new Error('validation error: please complete firstName, lastname and email.');
+            CustomError.createError({
+                name: "User creation error",
+                cause: getErrorCause(this.name, {firstName, lastName, email}),
+                msg: "An error occured while trying to set the user",
+                code: HandledErrors.INVALID_TYPES_ERROR
+            });
         }
     }
     async getAll() {
@@ -24,7 +28,14 @@ class UserService {
     }
 
     async updateOne(uid, firstName, lastName, email) {
-        if (!uid) throw new Error('invalid _id');
+        if (!uid) {
+            CustomError.createError({
+                name: "Invalid id",
+                cause: getErrorCause(this.name),
+                msg: "An error occurred while trying to process the last request",
+                code: HandledErrors.INVALID_TYPES_ERROR
+            })
+        };
         this.validateUser(firstName, lastName, email);
         const userUpdated = await UserModel.updateOne({ _id: id }, { firstName, lastName, email });
         return userUpdated;

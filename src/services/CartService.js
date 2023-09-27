@@ -1,9 +1,14 @@
 
 import CartsDAO from "../DAO/mongo/CartsDAO.js";
 import { ProductsModel } from "../DAO/mongo/models/products.model.js";
-import { generateUniqueCode } from "../utils.js";
+import { generateUniqueCode } from "../Utils/utils.js";
+import CustomError from "./errorHandling/CustomError.js";
+import HandledErrors from "./errorHandling/ErrorCode.js";
+import {getErrorCause} from "./errorHandling/info.js";
 import ProductService from "./ProductService.js"
 import TicketService from "./TicketService.js";
+
+
 
 class CartsService {
     async getAll() {
@@ -16,7 +21,12 @@ class CartsService {
     async getById(cid) {
         const cart = await CartsDAO.fetchCartById(cid)
         if (!cart) {
-            throw new Error("Cart not found");
+            CustomError.createError({
+                name: "Cart not found",
+                cause: getErrorCause(this.name),
+                msg: "An error occurred while trying to find the requested cart",
+                code: HandledErrors.RESOURCE_NOT_FOUND_ERROR
+            })
         }
         return cart
     }
@@ -60,7 +70,12 @@ class CartsService {
 
         }
         if(!itemsToPurchase[0]){
-            throw new Error("No items available for purchase")
+            CustomError.createError({
+                name: "No items available for purchase",
+                cause: getErrorCause(this.name),
+                msg: "An error occurred while trying to process the last request",
+                code: HandledErrors.RESOURCE_NOT_FOUND_ERROR
+            })
         }
         
         const ticket = await TicketService.createOne({
@@ -98,7 +113,14 @@ class CartsService {
         const productIndex = cart.items.findIndex(ele => ele.items._id.toString() === pid)
 
         if (productIndex === -1) {
-            if (product.stock === 0) throw new Error("Not enough stock")
+            if (product.stock === 0){
+                CustomError.createError({
+                    name: "Not enough stock",
+                    cause: getErrorCause(this.name),
+                    msg: "An error occurred while trying to process the last request",
+                    code: HandledErrors.STOCK_RELATED_ERROR
+                })
+            }
             cart.items.push({
                 productId: product._id,
                 quantity: 1
@@ -109,11 +131,21 @@ class CartsService {
     async updateProductInCart(cid, pid, data) {
         const cart = await this.getById(cid)
         if (!cart) {
-            throw new Error('Cart not found')
+            CustomError.createError({
+                name: "Cart not found",
+                cause: getErrorCause(this.name),
+                msg: "An error occurred while trying to find the requested cart",
+                code: HandledErrors.RESOURCE_NOT_FOUND_ERROR
+            })
         }
         const product = await ProductsModel.find({ _id: pid })
         if (!product) {
-            throw new Error('Product not found')
+            CustomError.createError({
+                name: "Product not found",
+                cause: getErrorCause(this.name),
+                msg: "An error occurred while trying to find the requested product",
+                code: HandledErrors.RESOURCE_NOT_FOUND_ERROR
+            })
         }
         const result = await CartsDAO.fetchAndUpdate(
             {
@@ -146,10 +178,20 @@ class CartsService {
         for (const item of data) {
             const productFound = await ProductsModel.findOne({ _id: item.productId });
             if (!productFound) {
-                throw new Error("Product not found");
+                CustomError.createError({
+                    name: "Product not found",
+                    cause: getErrorCause(this.name),
+                    msg: "An error occurred while trying to find the requested product",
+                    code: HandledErrors.RESOURCE_NOT_FOUND_ERROR
+                })
             }
             if (productFound.stock === 0) {
-                throw new Error("Not enough stock")
+                CustomError.createError({
+                    name: "Not enough stock",
+                    cause: getErrorCause(this.name),
+                    msg: "An error occurred while trying to process the last request",
+                    code: HandledErrors.STOCK_RELATED_ERROR
+                })
             }
             cartFound = await CartsDAO.fetchAndUpdate(
                 { _id: cid },
@@ -169,12 +211,22 @@ class CartsService {
 
         const cart = await this.getById(cid)
         if (!cart) {
-            throw new Error('Cart not found')
+            CustomError.createError({
+                name: "Cart not found",
+                cause: getErrorCause(this.name),
+                msg: "An error occurred while trying to find the requested cart",
+                code: HandledErrors.RESOURCE_NOT_FOUND_ERROR
+            })
         }
 
         const product = await ProductsModel.findById({ _id: pid })
         if (!product) {
-            throw new Error('Product not found')
+            CustomError.createError({
+                name: "Product not found",
+                cause: getErrorCause(this.name),
+                msg: "An error occurred while trying to find the requested product",
+                code: HandledErrors.RESOURCE_NOT_FOUND_ERROR
+            })
         }
 
         const result = await CartsDAO.fetchAndUpdate(

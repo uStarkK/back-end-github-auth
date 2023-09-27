@@ -1,6 +1,6 @@
 
 import CartService from "../../services/CartService.js";
-import { sendErrorResponse } from "../../utils.js";
+import { sendErrorResponse } from "../../Utils/utils.js";
 
 export const updateCart = async (req, res) => {
     try {

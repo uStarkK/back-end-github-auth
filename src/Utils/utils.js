@@ -20,7 +20,7 @@ export const uploader = multer({ storage });
 import path from "path";
 import { fileURLToPath } from "url";
 export const __filename = fileURLToPath(import.meta.url);
-export const __dirname = path.dirname(__filename);
+export const __dirname = path.dirname(path.dirname(__filename));
 
 // MONGO //
 import { connect } from "mongoose";
@@ -42,8 +42,8 @@ export async function connectMongo() {
 // SOCKET //
 
 import { Server } from 'socket.io';
-import ProductService from "./services/ProductService.js";
-import { MsgModel } from "./DAO/mongo/models/msgs.model.js";
+import ProductService from "../services/ProductService.js";
+import { MsgModel } from "../DAO/mongo/models/msgs.model.js";
 
 export const startSocket = async (httpServer) => {
     const socketServer = new Server(httpServer)
@@ -92,13 +92,13 @@ export const sendErrorResponse = (res, err) => {
     if (err.message === 'Cart not found') {
         return res.status(404).json({
             status: "Error",
-            msg: "The cart you are looking for does not exist"
+            msg: "An error occurred while trying to find the cart. Please try again"
         });
     }
     if (err.message === 'Product not found') {
         return res.status(404).json({
             status: "Error",
-            msg: "Product does not exist"
+            msg: "An error occurred while trying to find the product. Please try again"
         });
     }
     if (err.message === 'Not enough stock') {
@@ -116,7 +116,7 @@ export const sendErrorResponse = (res, err) => {
     if (err.message === 'Ticket not found') {
         return res.status(404).json({
             status: "Error",
-            msg: "Ticket does not exist"
+            msg: "An error occurred while trying to find the ticket. Please try again"
         });
     }
     if (err.name === 'ValidationError') {
@@ -129,7 +129,7 @@ export const sendErrorResponse = (res, err) => {
 
 
 ///// Generate ticket's Code
-import { TicketModel } from "./DAO/mongo/models/tickets.model.js";
+import { TicketModel } from "../DAO/mongo/models/tickets.model.js";
 
 
 export async function generateUniqueCode() {
@@ -153,3 +153,6 @@ export async function generateUniqueCode() {
 
     return newCode;
 }
+
+
+

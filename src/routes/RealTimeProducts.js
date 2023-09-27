@@ -11,6 +11,6 @@ realTimeProducts.get('/', isAdmin, async (req, res) => {
     try{const products = await ProductsModel.find({}).lean().exec()
     return res.status(200).render("realTimeProducts", {products})
     }catch(err){
-        console.log("error")
+        req.logger.error("error")
     }
 })

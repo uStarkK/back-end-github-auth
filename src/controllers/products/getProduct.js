@@ -1,6 +1,6 @@
 
 import ProductService from "../../services/ProductService.js";
-import { sendErrorResponse } from "../../utils.js";
+import { sendErrorResponse } from "../../Utils/utils.js";
 
 export const getProduct = async (req, res) => {
     try {
