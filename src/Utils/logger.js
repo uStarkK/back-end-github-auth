@@ -26,12 +26,17 @@ export const logger = winston.createLogger({
     transports: [
         new winston.transports.Console({
             level: process.env.NODE_ENV === "production" ? "info" : "debug",
-            format: winston.format.combine(winston.format.colorize({ all: true, colors: logLevelsOptions.logColors }), winston.format.simple())
+            format: winston.format.colorize({ all: true, colors: logLevelsOptions.logColors }),
         }),
         new winston.transports.File({
-            filename: "./errors.log",
+            filename: "./logs.log",
             level: "warn",
-            format: winston.format.simple(),
+            format: winston.format.combine(
+                winston.format.timestamp(),
+                winston.format.printf(({ timestamp, level, message }) => {
+                    return `${timestamp} ${level}: ${message}`;
+                }),
+            ),
         }),
     ],
 });

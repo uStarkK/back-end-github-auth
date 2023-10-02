@@ -18,10 +18,15 @@ import { sessionsRouter } from "./routes/sessions.router.js";
 import { connectMongo, startSocket, __dirname } from "./Utils/utils.js";
 import { fakeData } from "./routes/faker.router.js";
 import { addLogger } from "./Utils/logger.js";
+import { loggerTest } from "./routes/loggerTest.router.js";
+import swaggerJSDoc from "swagger-jsdoc";
+import swaggerUiExpress from "swagger-ui-express"
 
 dotenv.config()
 
 const { DB, SESSION_SECRET } = process.env
+
+
 
 // SERVER 
 const PORT = 8080
@@ -39,6 +44,32 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }))
+
+const swaggerOptions = {
+
+    definition: {
+
+        openapi: "3.0.1",
+
+        info: {
+
+            title: "API Docs",
+
+            description: "Este proyecto si es de pizzas, y tambien de un ecommerce",
+
+        },
+
+    },
+
+    apis: [`${__dirname}/docs/**/*.yaml`],
+
+};
+
+
+
+const specs = swaggerJSDoc(swaggerOptions);
+
+app.use("/apidocs", swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
 
 // PASSPORT
 iniPassport();
@@ -67,15 +98,7 @@ app.use("/chat", testChat)
 
 
 
-app.get("/loggertest", (req, res) =>{
-    req.logger.debug("This is a debug message");
-    req.logger.http("This is an http message");
-    req.logger.info("This is an info message")
-    req.logger.warn("Hello! I'm an alert");
-    req.logger.error("Hi! I'm an error");
-    req.logger.fatal("I'm a fatal error! Good luck!");
-    res.send("Prueba logger")
-})
+app.get("/loggertest", loggerTest)
 
 
 app.get("*", (req, res, next) => {

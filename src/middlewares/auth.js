@@ -1,13 +1,26 @@
+import { logger } from "../Utils/logger.js";
+
 export function isUser(req, res, next) {
-    if (req.session?.user) {
-        return next();
+    try {
+        if (req.session?.user) {
+            return next();
+        }
+    } catch (e) {
+        logger.error(e.message);
+        const isLogin = "Must be logged-in to access this page";
+        return res.status(201).render("error", { isLogin });
     }
-    return res.status(401).render('error', { error: 'Unauthorized, please log in' });
 }
 
-export function isAdmin(req, res, next) {
-    if (req.session?.user.role === "admin") {
-        return next();
+    export function isAdmin(req, res, next) {
+        try {
+            if (req.session?.user?.role == "admin" || req.session?.user?.premium == true) {
+                return next();
+            } else {
+                const isAdmin = "Must be an admin or premium user to access this page";
+                return res.status(201).render("error", { isAdmin });
+            }
+        } catch (e) {
+            logger.error(e.message);
+        }
     }
-    return res.status(403).render('error', { error: 'Unauthorized' });
-}

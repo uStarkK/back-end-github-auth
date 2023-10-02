@@ -1,0 +1,198 @@
+paths:
+  /api/carts:
+    get:
+      summary: Obtiene todos los carritos de compra
+      tags:
+        - Carts
+      responses:
+        "200":
+          description: Los carritos de compra fueron devueltos satisfactoriamente
+        "500":
+          description: Error del servidor. Usualmente generando la query o falla la conexión a la DB
+    post:
+      summary: Crea un nuevo carrito de compra
+      tags:
+        - Carts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/requestBodies/createCart"
+      responses:
+        "201":
+          description: Carrito de compra creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: "#components/schemas/Cart"
+  /api/carts/{cartId}:
+    get:
+      summary: Obtiene un carrito de compra por ID
+      tags:
+        - Carts
+      parameters:
+        - name: cartId
+          in: path
+          required: true
+          description: ID del carrito de compra que se busca
+          schema:
+            $type: string
+      responses:
+        "200":
+          description: Carrito de compra encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#components/schemas/Cart"
+        "500":
+          description: Error del servidor. Usualmente generando la query o falla la conexión a la DB
+    put:
+      summary: Actualizar un carrito de compra a partir del ID
+      tags:
+        - Carts
+      parameters:
+        - name: cartId
+          in: path
+          required: true
+          description: ID del carrito de compra que se busca
+          schema:
+            $type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/requestBodies/updateCart"
+      responses:
+        "200":
+          description: El carrito de compra fue actualizado correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#components/schemas/Cart"
+        "500":
+          description: Error del servidor. Usualmente falla la búsqueda por ID o no pasa la validación de campos requeridos
+    delete:
+      summary: Elimina un carrito de compra por ID
+      tags:
+        - Carts
+      parameters:
+        - name: cartId
+          in: path
+          required: true
+          description: ID del carrito de compra que se desea eliminar
+          schema:
+            $type: string
+      responses:
+        "204":
+          description: Carrito de compra eliminado exitosamente
+components:
+  schemas:
+    ResAllCarts:
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+        payload:
+          type: array
+          items:
+            type: object
+            properties:
+              _id:
+                type: string
+                example: BpK57ZOIQBmqd2wjRdLk5yxSy
+              products:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    product:
+                      type: string
+                      example: 647b69f62a2deaefe1fc2838
+                    quantity:
+                      type: integer
+                      example: 12
+                    _id:
+                      type: string
+                      example: 650637cf34245b41c065518f
+              __v:
+                type: integer
+                example: 2
+    Success:
+      type: object
+      properties:
+        status:
+          type: string
+          description: success or error
+        message:
+          type: string
+          description: aclarando que ocurrió
+      example:
+        status: success
+        message: Carrito de compra actualizado
+    Cart:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID auto generado por mongo para el carrito de compra
+        products:
+          type: array
+          description: Lista de productos en el carrito
+          items:
+            type: object
+            properties:
+              product:
+                type: string
+                description: ID del producto en el carrito
+              quantity:
+                type: number
+                description: Cantidad del producto en el carrito
+      example:
+        id: "644081a93f0625dc193bc594"
+        products:
+          - product: "12345"
+            quantity: 2
+  requestBodies:
+    createCart:
+      type: object
+      properties:
+        items:
+          type: array
+          description: Lista de productos en el carrito
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: ID del producto a agregar al carrito
+              quantity:
+                type: number
+                description: Cantidad del producto a agregar al carrito
+      example:
+        products:
+          - id: "54321"
+            quantity: 3
+    updateCart:
+      type: object
+      properties:
+        products:
+          type: array
+          description: Lista de productos en el carrito
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: ID del producto en el carrito
+              quantity:
+                type: number
+                description: Cantidad del producto en el carrito
+      example:
+        products:
+          - id: "54321"
+            quantity: 5

@@ -5,6 +5,7 @@ import local from 'passport-local';
 import { UserModel } from '../DAO/mongo/models/users.model.js';
 import CartService from '../services/CartService.js';
 import { createHash, isValidPassword } from '../Utils/utils.js';
+import { logger } from '../Utils/logger.js';
 dotenv.config();  // Loads environment variables from .env file
 const { CLIENT_ID, CLIENT_SECRET } = process.env;
 const LocalStrategy = local.Strategy;
@@ -16,11 +17,11 @@ export function iniPassport() {
             try {
                 const user = await UserModel.findOne({ email: username });
                 if (!user) {
-                    console.log('User Not Found with username (email) ' + username);
+                    logger.error('User Not Found with username (email) ' + username);
                     return done(null, false);
                 }
                 if (!isValidPassword(password, user.password ?? "nopass")) {
-                    console.log('Invalid Password');
+                    logger.error('Invalid Password');
                     return done(null, false);
                 }
                 
@@ -79,7 +80,7 @@ export function iniPassport() {
                 callbackURL:'http://localhost:8080/api/sessions/githubcallback',
             },
             async (accesToken, _, profile, done) => {
-                
+                logger.debug(profile)
                 try {
                     const res = await fetch('https://api.github.com/user/emails', {
                         headers: {
@@ -122,17 +123,17 @@ export function iniPassport() {
                             
                         } catch (err) {
                             // Handle the error
-                            console.error(err);
+                            logger.error(err);
                         }
-                        console.log('User Registration succesful');
+                        logger.info('User Registration succesful');
                         return done(null, userCreated);
                     } else {
-                        console.log('User already exists');
+                        logger.info('User already exists');
                         return done(null, user);
                     }
                 } catch (e) {
-                    console.log('Error en auth github');
-                    console.log(e);
+                    logger.error('Error en auth github');
+                    logger.error(e);
                     return done(e);
                 }
             }

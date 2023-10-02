@@ -1,0 +1,217 @@
+paths:
+  /api/products:
+    get:
+      summary: Obtiene todos los productos
+      tags:
+        - Products
+      responses:
+        "200":
+          description: Los productos fueron devueltos satisfactoriamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#components/schemas/Product"
+        "500":
+          description: Error del servidor. Usualmente generando la query o falla la conexión a la DB
+    post:
+      summary: Crea un nuevo producto
+      tags:
+        - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/requestBodies/createProduct"
+      responses:
+        "201":
+          description: Producto creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: "#components/schemas/Product"
+  /api/products/{pid}:
+    get:
+      summary: Obtiene un Producto
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: ID del producto que se busca
+          schema:
+            $type: string
+      responses:
+        "200":
+          description: Producto encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#components/schemas/Product"
+        "500":
+          description: Error del servidor. Usualmente generando la query o falla la conexión a la DB
+    put:
+      summary: Actualizar un producto a partir del ID
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: ID del producto que se busca
+          schema:
+            $type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/requestBodies/updateProduct" # Aquí se agrega el requestBody updateProduct
+      responses:
+        "200":
+          description: El producto fue actualizado correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#components/schemas/Product"
+        "500":
+          description: Error del servidor. Usualmente falla la búsqueda por ID o no pasa la validación de campos requeridos
+    delete:
+      summary: Elimina un producto por ID
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: ID del producto que se desea eliminar
+          schema:
+            $type: string
+      responses:
+        "204":
+          description: Producto eliminado exitosamente
+components:
+  schemas:
+    Success:
+      type: object
+      properties:
+        status:
+          type: string
+          description: success or error
+        message:
+          type: string
+          description: aclarando que ocurrió
+      example:
+        status: success
+        message: Producto actualizado
+    Product:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: ID auto generado por mongo
+        title:
+          type: string
+          description: Nombre del producto
+        description:
+          type: string
+          description: Descripción del producto
+        category:
+          type: string
+          description: Categoría del producto
+        price:
+          type: number
+          description: Precio del producto
+        thumbnail:
+          type: string
+          description: Imagen del producto
+        code:
+          type: string
+          description: Código del producto
+        stock:
+          type: number
+          description: Stock del producto
+        owner:
+          type: number
+          description: Usuario que creó el producto
+      example:
+        _id: "644081a93f0625dc193bc594"
+        title: "Ejemplo de Producto"
+        description: "Descripción del producto"
+        category: "Categoría del producto"
+        price: 19.99
+        thumbnail: "Imagen del producto"
+        code: 12345
+        stock: 100
+        owner: "Usuario que creó el producto"
+  requestBodies:
+    createProduct:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Nombre del producto
+        description:
+          type: string
+          description: Descripción del producto
+        category:
+          type: string
+          description: Categoría del producto
+        price:
+          type: number
+          description: Precio del producto
+        thumbnail:
+          type: string
+          description: Imagen del producto
+        code:
+          type: number
+          description: Código del producto
+        stock:
+          type: number
+          description: Stock del producto
+      example:
+        title: "Nuevo Producto"
+        description: "Descripción del nuevo producto"
+        category: "Categoría del nuevo producto"
+        price: 29.99
+        thumbnail: "Imagen del nuevo producto"
+        code: 54321
+        stock: 50
+    updateProduct:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: ID auto generado por mongo
+        title:
+          type: string
+          description: Nombre del producto
+        description:
+          type: string
+          description: Descripción del producto
+        category:
+          type: string
+          description: Categoria del producto
+        price:
+          type: number
+          description: Precio del producto
+        thumbnail:
+          type: string
+          description: Imágen del producto
+        code:
+          type: number
+          description: Código del producto
+        stock:
+          type: number
+          description: Stock del producto
+        owner:
+          type: number
+          description: Usuario que creó el producto
+      example:
+        title: "Nuevo Nombre del Producto"
+        price: 29.99
