@@ -21,6 +21,7 @@ import { addLogger } from "./Utils/logger.js";
 import { loggerTest } from "./routes/loggerTest.router.js";
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUiExpress from "swagger-ui-express"
+import { usersRouter } from "./routes/users.router.js";
 
 dotenv.config()
 
@@ -85,7 +86,7 @@ app.set("view engine", "handlebars")
 // API ROUTES
 app.use("/api/products", productsRouter)
 app.use("/api/carts", cartRouter)
-
+app.use("/api/users", usersRouter)
 // HTML RENDER
 app.use('/api/sessions', sessionsRouter);
 app.use("/", productsRender)

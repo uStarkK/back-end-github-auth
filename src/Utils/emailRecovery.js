@@ -1,20 +1,22 @@
-import env from "../config/enviroment.config.js";
+import dotenv from "dotenv";
 import nodemailer from "nodemailer";
-import { logger } from "./main.js";
+import { logger } from "./logger.js";
+dotenv.config()
 
-export async function emailRecovery(options) {
+const { GOOGLE_EMAIL, GOOGLE_PW } = process.env
+
+export async function sendMail(options) {
     const transport = nodemailer.createTransport({
         service: "gmail",
         port: 587,
         auth: {
-            user: env.googleEmail,
-            pass: env.googlePass,
+            user: GOOGLE_EMAIL,
+            pass: GOOGLE_PW,
         },
     });
 
     try {
         const result = await transport.sendMail({
-            from: env.googleEmail,
             ...options,
         });
         logger.info("Correo electrónico enviado exitosamente.");

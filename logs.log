@@ -1,0 +1,40 @@
+2023-10-05T19:38:26.387Z error: undefined
+2023-10-05T21:29:38.360Z error: Error deleting Inactive Users
+2023-10-05T21:29:56.938Z error: Error deleting Inactive Users UserService.deleteUser is not a function
+2023-10-05T21:30:49.610Z error: Error al enviar el correo electrónico: env is not defined
+2023-10-05T21:30:49.611Z error: Error deleting Inactive Users env is not defined
+2023-10-05T21:30:49.770Z error: Error al enviar el correo electrónico: env is not defined
+2023-10-05T21:30:49.795Z error: Error al enviar el correo electrónico: env is not defined
+2023-10-05T21:30:49.798Z error: Error al enviar el correo electrónico: env is not defined
+2023-10-05T21:30:49.947Z error: Error al enviar el correo electrónico: env is not defined
+2023-10-05T21:30:49.974Z error: Error al enviar el correo electrónico: env is not defined
+2023-10-05T21:30:50.530Z error: Error al enviar el correo electrónico: env is not defined
+2023-10-05T21:30:50.535Z error: Error al enviar el correo electrónico: env is not defined
+2023-10-05T21:40:08.039Z error: Error al enviar el correo electrónico: Invalid login: 535-5.7.8 Username and Password not accepted. Learn more at
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 13-20020a170902c20d00b001b53c8659fesm2234905pll.30 - gsmtp
+2023-10-05T21:40:08.040Z error: Error deleting Inactive Users Invalid login: 535-5.7.8 Username and Password not accepted. Learn more at
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 13-20020a170902c20d00b001b53c8659fesm2234905pll.30 - gsmtp
+2023-10-05T21:42:48.335Z error: Error al enviar el correo electrónico: Invalid login: 535-5.7.8 Username and Password not accepted. Learn more at
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials du13-20020a056a002b4d00b0068e4c5a4f3esm46095pfb.71 - gsmtp
+2023-10-05T21:42:48.336Z error: Error deleting Inactive Users Invalid login: 535-5.7.8 Username and Password not accepted. Learn more at
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials du13-20020a056a002b4d00b0068e4c5a4f3esm46095pfb.71 - gsmtp
+2023-10-06T01:09:24.387Z error: Error al enviar el correo electrónico: Invalid login: 535-5.7.8 Username and Password not accepted. Learn more at
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials e24-20020a62aa18000000b006979f70fdd5sm202976pff.219 - gsmtp
+2023-10-06T01:09:24.388Z error: Error deleting Inactive Users Invalid login: 535-5.7.8 Username and Password not accepted. Learn more at
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials e24-20020a62aa18000000b006979f70fdd5sm202976pff.219 - gsmtp
+2023-10-06T01:10:02.354Z error: Error al enviar el correo electrónico: Invalid login: 535-5.7.8 Username and Password not accepted. Learn more at
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials fe21-20020a056a002f1500b0068c0fcb40d3sm204571pfb.211 - gsmtp
+2023-10-06T01:10:02.355Z error: Error deleting Inactive Users Invalid login: 535-5.7.8 Username and Password not accepted. Learn more at
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials fe21-20020a056a002f1500b0068c0fcb40d3sm204571pfb.211 - gsmtp
+2023-10-06T01:10:29.739Z error: Error al enviar el correo electrónico: Invalid login: 535-5.7.8 Username and Password not accepted. Learn more at
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials iz2-20020a170902ef8200b001c71ec1866fsm2423913plb.258 - gsmtp
+2023-10-06T01:10:29.740Z error: Error deleting Inactive Users Invalid login: 535-5.7.8 Username and Password not accepted. Learn more at
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials iz2-20020a170902ef8200b001c71ec1866fsm2423913plb.258 - gsmtp
+2023-10-06T01:25:25.856Z error: Error al enviar el correo electrónico: Invalid login: 534-5.7.9 Application-specific password required. Learn more at
+534 5.7.9  https://support.google.com/mail/?p=InvalidSecondFactor ci5-20020a17090afc8500b00262eccfa29fsm4260075pjb.33 - gsmtp
+2023-10-06T01:25:25.857Z error: Error deleting Inactive Users Invalid login: 534-5.7.9 Application-specific password required. Learn more at
+534 5.7.9  https://support.google.com/mail/?p=InvalidSecondFactor ci5-20020a17090afc8500b00262eccfa29fsm4260075pjb.33 - gsmtp
+2023-10-06T01:29:51.986Z error: Error al enviar el correo electrónico: Invalid login: 534-5.7.9 Application-specific password required. Learn more at
+534 5.7.9  https://support.google.com/mail/?p=InvalidSecondFactor b1-20020a170902d50100b001bdb0483e65sm2423464plg.265 - gsmtp
+2023-10-06T01:29:51.986Z error: Error deleting Inactive Users Invalid login: 534-5.7.9 Application-specific password required. Learn more at
+534 5.7.9  https://support.google.com/mail/?p=InvalidSecondFactor b1-20020a170902d50100b001bdb0483e65sm2423464plg.265 - gsmtp

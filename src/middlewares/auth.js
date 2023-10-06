@@ -18,7 +18,7 @@ export function isUser(req, res, next) {
                 return next();
             } else {
                 const isAdmin = "Must be an admin or premium user to access this page";
-                return res.status(201).render("error", { isAdmin });
+                return res.status(201).render("error", {error: isAdmin});
             }
         } catch (e) {
             logger.error(e.message);

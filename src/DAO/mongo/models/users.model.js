@@ -40,6 +40,12 @@ const userSchema = new Schema({
         required: true,
         default: "user"
     },
+
+    lastConnection: {
+        type: Date,
+        required: true,
+        default: new Date
+    }
 });
 userSchema.plugin(monsoosePaginate);
 

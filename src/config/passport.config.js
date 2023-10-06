@@ -24,7 +24,13 @@ export function iniPassport() {
                     logger.error('Invalid Password');
                     return done(null, false);
                 }
-                
+                logger.debug(user.lastConnection)
+
+                await UserModel.findOneAndUpdate(
+                    { email: user.email },
+                    { $set: { lastConnection: new Date } },
+                    { new: true, upsert: true }
+                )
                 return done(null, user);
             } catch (err) {
                 return done(err);
@@ -57,7 +63,7 @@ export function iniPassport() {
                         password: createHash(password),
                         cartId: await CartService.assignCart()
                     };
-                
+
                     let userCreated = await UserModel.create(newUser);
                     req.logger.debug(userCreated);
                     req.logger.info('User Registration succesful');
@@ -77,7 +83,7 @@ export function iniPassport() {
             {
                 clientID: CLIENT_ID,
                 clientSecret: CLIENT_SECRET,
-                callbackURL:'http://localhost:8080/api/sessions/githubcallback',
+                callbackURL: 'http://localhost:8080/api/sessions/githubcallback',
             },
             async (accesToken, _, profile, done) => {
                 logger.debug(profile)
@@ -89,7 +95,7 @@ export function iniPassport() {
                             'X-Github-Api-Version': '2022-11-28',
                         },
                     });
-                    
+
                     const emails = await res.json();
                     const emailDetail = emails.find((email) => email.verified == true);
 
@@ -114,13 +120,13 @@ export function iniPassport() {
 
                         // Finds the user document in the database and sets password to null
                         try {
-                            
+
                             const user = await UserModel.findOneAndUpdate(
                                 { email: newUser.email },
                                 { $set: { password: null, lastName: null } },
                                 { new: true, upsert: true }
                             );
-                            
+
                         } catch (err) {
                             // Handle the error
                             logger.error(err);
@@ -129,6 +135,11 @@ export function iniPassport() {
                         return done(null, userCreated);
                     } else {
                         logger.info('User already exists');
+                        await UserModel.findOneAndUpdate(
+                            { email: user.email },
+                            { $set: { lastConnection: new Date } },
+                            { new: true, upsert: true }
+                        )
                         return done(null, user);
                     }
                 } catch (e) {

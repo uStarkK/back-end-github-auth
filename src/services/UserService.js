@@ -1,4 +1,4 @@
-import { UserModel } from '../DAO/models/users.model.js';
+import { UserModel } from '../DAO/mongo/models/users.model.js';
 import UsersDAO from '../DAO/mongo/UsersDAO.js';
 class UserService {
     validateUser(firstName, lastName, email) {
@@ -22,7 +22,7 @@ class UserService {
         return userCreated;
     }
 
-    async deletedOne(uid) {
+    async deleteOne(uid) {
         const deleted = await UserModel.deleteOne({ _id: uid });
         return deleted;
     }
