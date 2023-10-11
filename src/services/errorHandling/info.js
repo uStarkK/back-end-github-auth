@@ -21,7 +21,7 @@ export  function getErrorCause(errorName) {
 export  function generateUserErrorInfo(user){
             return `One or more properties were incomplete or not valid.
             List of required properties:
-            * first_name: Has to be a string. Received ${user.firstName}
+            * firstName: Has to be a string. Received ${user.firstName}
             * lastName: Has to be a string. Received ${user.lastName}
             * email: Has to be a string. received ${user.email}`;
 }
@@ -29,10 +29,10 @@ export  function generateUserErrorInfo(user){
 export  function generateProductErrorInfo(product){
             return `One or more properties were incomplete or not valid.
             List of required properties:
-            * title: Has to be a string. Received 
-            * price: Has to be a number. Received 
-            * category: Has to be a string. received 
-            * description: Has to be a string. Received`;
+            * title: Has to be a string. Received ${product.title}}
+            * price: Has to be a number. Received ${product.price}
+            * category: Has to be a string. received ${product.category}
+            * description: Has to be a string. Received ${product.description}`;
 
 }
 

@@ -87,14 +87,22 @@ usersRouter.delete('/:id', async (req, res) => {
     }
 });
 
-usersRouter.put('/:id', async (req, res) => {
+usersRouter.put('/:uid', async (req, res) => {
     try {
-        const { id } = req.params;
-        const { firstName, lastName, email } = req.body;
+        const { uid } = req.params;
+        const { firstName, lastName, email, role } = req.body;
+        const userToUpdate = {
+            uid: uid,
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            role: role,
+        }
+        UserService.updateOne({...userToUpdate})
         return res.status(201).json({
             status: 'success',
             msg: 'user updated',
-            data: { _id: id, firstName, lastName, email },
+            data: { _id: uid, firstName, lastName, email, role},
         });
     } catch (e) {
         req.logger.error(e);

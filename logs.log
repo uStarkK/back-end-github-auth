@@ -38,3 +38,8 @@
 534 5.7.9  https://support.google.com/mail/?p=InvalidSecondFactor b1-20020a170902d50100b001bdb0483e65sm2423464plg.265 - gsmtp
 2023-10-06T01:29:51.986Z error: Error deleting Inactive Users Invalid login: 534-5.7.9 Application-specific password required. Learn more at
 534 5.7.9  https://support.google.com/mail/?p=InvalidSecondFactor b1-20020a170902d50100b001bdb0483e65sm2423464plg.265 - gsmtp
+2023-10-11T08:07:13.268Z error: undefined
+2023-10-11T08:07:32.571Z error: undefined
+2023-10-11T08:07:52.764Z error: undefined
+2023-10-11T08:10:02.188Z error: TypeError: Found non-callable @@iterator
+2023-10-11T08:10:24.884Z error: undefined

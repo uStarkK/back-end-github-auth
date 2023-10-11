@@ -22,6 +22,7 @@ import { loggerTest } from "./routes/loggerTest.router.js";
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUiExpress from "swagger-ui-express"
 import { usersRouter } from "./routes/users.router.js";
+import { userRender } from "./routes/users.render.js";
 
 dotenv.config()
 
@@ -66,6 +67,18 @@ const swaggerOptions = {
 
 };
 
+const hbs = handlebars.create({
+    extname: '.handlebars',
+    helpers: {
+        eq: function (a, b) {
+            return a === b;
+        }
+    }
+});
+
+app.engine('handlebars', hbs.engine);
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'handlebars');
 
 
 const specs = swaggerJSDoc(swaggerOptions);
@@ -76,11 +89,6 @@ app.use("/apidocs", swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
 iniPassport();
 app.use(passport.initialize());
 app.use(passport.session());
-
-// Routes / Views
-app.engine("handlebars", handlebars.engine());
-app.set("views", path.join(__dirname, "views"))
-app.set("view engine", "handlebars")
 
 
 // API ROUTES
@@ -93,6 +101,7 @@ app.use("/", productsRender)
 app.use("/carts", cartRender)
 app.use("/auth", authRouter)
 app.use("/mockingproducts", fakeData)
+app.use("/users", userRender)
 // SOCKETS ROUTE
 app.use("/realTimeProducts", realTimeProducts)
 app.use("/chat", testChat)
