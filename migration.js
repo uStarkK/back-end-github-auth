@@ -1,6 +1,7 @@
 import { connect } from "mongoose";
 import mongoose from "mongoose";
 import { UserModel } from "./src/DAO/mongo/models/users.model.js";
+import { ProductsModel } from "./src/DAO/mongo/models/products.model.js";
 
 
 // Connect to MongoDB
@@ -13,14 +14,14 @@ await connect(
 console.log("Connected to Mongo")
 
 
-async function updateUsers() {
+async function updateProducts() {
     try {
         
-        const usersToUpdate = await UserModel.find({lastConnection: {$exists: false}})
-        console.log(usersToUpdate)
-        for (const user of usersToUpdate) {
-            user.lastConnection = new Date(); // Set lastConnection to the current date and time
-            await user.save(); // Saves the updated user
+        const productsToUpdate = await ProductsModel.find({owner: {$exists: true}})
+        console.log(productsToUpdate.length)
+        for (const product of productsToUpdate) {
+            product.owner = null; 
+            await product.save(); 
         }
 
         console.log('Migration completed successfully.');
@@ -31,4 +32,4 @@ async function updateUsers() {
     }
 }
 
-updateUsers();
+updateProducts();

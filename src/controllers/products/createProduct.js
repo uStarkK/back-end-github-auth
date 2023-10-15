@@ -3,8 +3,9 @@ import { sendErrorResponse } from "../../Utils/utils.js";
 
 export const createProduct = async (req, res) => {
     try {
-        let newProduct = req.body;
-        const productCreated = await ProductService.createOne(newProduct)
+        const { ...newProduct } = req.body;
+        const uid = req.session?.user?.id
+        const productCreated = await ProductService.createOne(newProduct, uid)
         return res.json({
             status: "success",
             msg: "Product created",

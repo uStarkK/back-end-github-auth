@@ -1,4 +1,5 @@
 import ProductsDAO from "../DAO/mongo/ProductsDAO.js";
+import UserService from "./UserService.js";
 import CustomError from "./errorHandling/CustomError.js";
 import HandledErrors from "./errorHandling/ErrorCode.js";
 import {getErrorCause} from "./errorHandling/info.js";
@@ -7,8 +8,14 @@ import {getErrorCause} from "./errorHandling/info.js";
 
 
 class ProductService {
-    async createOne(product){
-        return await ProductsDAO.createInDB(product)
+    async createOne(product, uid){
+        const user = await UserService.getOne(uid)
+        if(user.role === "premium" || user.role === "admin"){
+            product.owner = user._id
+            console.log(product)
+        }
+        console.log(product)
+        /* return await ProductsDAO.createInDB(product) */
     }
     async getAll(query, pagination) {
         const queryResult = await ProductsDAO.paginate(query, pagination);
@@ -27,7 +34,7 @@ class ProductService {
         return product
     }
     async updateProduct(pid, update){
-        const updatedProduct = await ProductsDAO.updateInDB({ _id: pid }, update);
+        const updatedProduct = await ProductsDAO.updateOne({ _id: pid }, update);
         return updatedProduct
     }
     async deleteProduct(pid){

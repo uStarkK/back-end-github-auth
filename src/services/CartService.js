@@ -1,7 +1,7 @@
 
 import CartsDAO from "../DAO/mongo/CartsDAO.js";
 import { ProductsModel } from "../DAO/mongo/models/products.model.js";
-import { generateUniqueCode } from "../Utils/utils.js";
+import { generateTicketCode } from "../Utils/utils.js";
 import CustomError from "./errorHandling/CustomError.js";
 import HandledErrors from "./errorHandling/ErrorCode.js";
 import {getErrorCause} from "./errorHandling/info.js";
@@ -37,6 +37,10 @@ class CartsService {
 
     async saveCart(cid) {
         return await CartsDAO.saveCart(cid)
+    }
+
+    async deleteCart(cid){
+        return await CartsDAO.deleteCart(cid)
     }
 
     async clearCart(cid) {
@@ -79,7 +83,7 @@ class CartsService {
         }
         
         const ticket = await TicketService.createOne({
-            code: await generateUniqueCode(),
+            code: await generateTicketCode(),
             amount: totalAmount,
             purchaser
         })

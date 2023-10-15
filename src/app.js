@@ -13,7 +13,6 @@ import { cartRouter } from "./routes/cart_router.js";
 import { testChat } from "./routes/chat.router.js";
 import { productsRender } from "./routes/ProductsRender.js";
 import { productsRouter } from "./routes/products_router.js";
-import { realTimeProducts } from "./routes/RealTimeProducts.js";
 import { sessionsRouter } from "./routes/sessions.router.js";
 import { connectMongo, startSocket, __dirname } from "./Utils/utils.js";
 import { fakeData } from "./routes/faker.router.js";
@@ -72,6 +71,14 @@ const hbs = handlebars.create({
     helpers: {
         eq: function (a, b) {
             return a === b;
+        },
+        isAuthorized: function(role, userId, productOwner){
+            if(role === "admin"){
+                return true
+            }
+            if(role === "premium"){
+                return true
+            }
         }
     }
 });
@@ -103,7 +110,6 @@ app.use("/auth", authRouter)
 app.use("/mockingproducts", fakeData)
 app.use("/users", userRender)
 // SOCKETS ROUTE
-app.use("/realTimeProducts", realTimeProducts)
 app.use("/chat", testChat)
 
 

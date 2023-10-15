@@ -43,3 +43,39 @@
 2023-10-11T08:07:52.764Z error: undefined
 2023-10-11T08:10:02.188Z error: TypeError: Found non-callable @@iterator
 2023-10-11T08:10:24.884Z error: undefined
+2023-10-11T18:52:54.803Z error: Error in register
+2023-10-11T18:52:54.804Z error: undefined
+2023-10-11T18:53:33.841Z error: Error in register
+2023-10-11T18:53:33.842Z error: undefined
+2023-10-11T20:06:46.392Z error: Cannot delete an admin user
+2023-10-11T20:06:46.393Z error: undefined
+2023-10-11T20:08:46.115Z error: Cannot delete an admin user
+2023-10-11T20:08:46.116Z error: undefined
+2023-10-11T20:09:34.221Z error: Cannot delete an admin user
+2023-10-11T20:09:34.222Z error: undefined
+2023-10-11T20:11:34.919Z error: Cannot delete an admin user
+2023-10-11T20:11:34.920Z error: undefined
+2023-10-11T20:12:53.203Z error: Cannot delete an admin user
+2023-10-11T20:12:53.204Z error: undefined
+2023-10-11T20:14:00.889Z error: undefined
+2023-10-11T20:14:00.890Z error: You cannot delete this user due to lack of permissions
+2023-10-11T20:14:48.030Z error: Cannot delete an admin user
+2023-10-11T20:14:48.031Z error: undefined
+2023-10-11T20:15:23.974Z error: undefined
+2023-10-11T20:15:23.975Z error: You cannot delete this user due to lack of permissions
+2023-10-11T20:16:18.135Z error: undefined
+2023-10-11T20:16:18.137Z error: undefined
+2023-10-11T20:16:38.446Z error: undefined
+2023-10-11T20:16:38.446Z error: undefined
+2023-10-11T20:16:58.135Z error: undefined
+2023-10-11T20:16:58.136Z error: You cannot delete this user due to lack of permissions
+2023-10-11T20:33:07.438Z error: undefined
+2023-10-11T20:33:07.439Z error: undefined
+2023-10-11T20:33:33.970Z error: Cannot delete an admin user
+2023-10-11T20:33:33.971Z error: undefined
+2023-10-11T20:33:55.706Z error: Cannot delete an admin user
+2023-10-11T20:33:55.707Z error: undefined
+2023-10-11T20:34:18.710Z error: Cannot delete an admin user
+2023-10-11T20:34:18.711Z error: undefined
+2023-10-11T20:34:31.878Z error: Cannot delete an admin user
+2023-10-11T20:34:31.880Z error: Lacking Permissions

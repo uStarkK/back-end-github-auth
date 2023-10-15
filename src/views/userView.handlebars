@@ -23,7 +23,7 @@
     </form>
 </div>
 <div style="display: flex; justify-content: flex-start; margin-top: 5%;">
-    <button>Delete user</button>
+    <button id="delete_button">Delete user</button>
 </div>
 
 
@@ -31,6 +31,7 @@
     document.addEventListener('DOMContentLoaded', () => {
     const editUserForm = document.getElementById('edit_user_form');
     const saveButton = document.getElementById('save-button');
+    const deleteButton = document.getElementById("delete_button")
     saveButton.addEventListener('click', () => {
         const userId = editUserForm.getAttribute('user_id');
         const formData = new FormData(editUserForm)
@@ -50,7 +51,7 @@
         .then(response => {
             if (response.ok) {
                 
-                window.location.href = `/users/${userId}`; 
+                window.location.href = `/users`; 
             } else {
                 
                 console.error('Error updating user.');
@@ -61,5 +62,11 @@
         });
         
     });
+    deleteButton.addEventListener("click", async ()=>{
+        const userId = editUserForm.getAttribute("user_id")
+        await fetch(`/api/users/${userId}`, {
+            method: "DELETE"
+        })
+    })
 });
 </script>

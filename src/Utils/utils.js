@@ -132,7 +132,7 @@ export const sendErrorResponse = (res, err) => {
 import { TicketModel } from "../DAO/mongo/models/tickets.model.js";
 
 
-export async function generateUniqueCode() {
+export async function generateTicketCode() {
     const existingTickets = await TicketModel.find({}, { code: 1 }).sort({ code: -1 }).limit(1); // Retrieves all Ticket codes and sorts them in descending order, starting from the last one
 
     if (existingTickets.length === 0) {
@@ -154,5 +154,58 @@ export async function generateUniqueCode() {
     return newCode;
 }
 
+export async function generateProductCode(){
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+    let result = "";
+    const charactersLength = characters.length;
+    for (let i = 0; i < 5; i++){
+        result += characters.charAt(Math.floor(Math.random() * charactersLength))
+    }
+    return result
+}
 
+///////////////// Easier Time readibility
 
+export function parseLastConnection(lastConnection) {
+    const dateString = lastConnection
+
+    // Parse the date string into a JavaScript Date object
+    const date = new Date(dateString);
+
+    // Get the current date
+    const currentDate = new Date();
+
+    // Calculate the time difference in milliseconds
+    const timeDifference = currentDate - date;
+
+    // Define the time units
+    const minute = 60 * 1000; // 1 minute in milliseconds
+    const hour = minute * 60; // 1 hour in milliseconds
+    const day = hour * 24; // 1 day in milliseconds
+    const month = day * 30; // An approximate month
+    const year = day * 365; // An approximate year
+
+    // Determine the time unit to display
+    let timeAgo;
+    if (timeDifference < minute) {
+        timeAgo = "just now";
+    } else if (timeDifference < hour) {
+        const minutesAgo = Math.floor(timeDifference / minute);
+        timeAgo = `${minutesAgo} minute${minutesAgo > 1 ? "s" : ""} ago`;
+    } else if (timeDifference < day) {
+        const hoursAgo = Math.floor(timeDifference / hour);
+        timeAgo = `${hoursAgo} hour${hoursAgo > 1 ? "s" : ""} ago`;
+    } else if (timeDifference < month) {
+        const daysAgo = Math.floor(timeDifference / day);
+        timeAgo = `${daysAgo} day${daysAgo > 1 ? "s" : ""} ago`;
+    } else if (timeDifference < year) {
+        const monthsAgo = Math.floor(timeDifference / month);
+        timeAgo = `${monthsAgo} month${monthsAgo > 1 ? "s" : ""} ago`;
+    } else {
+        const yearsAgo = Math.floor(timeDifference / year);
+        timeAgo = `${yearsAgo} year${yearsAgo > 1 ? "s" : ""} ago`;
+    }
+
+    
+    return timeAgo
+}

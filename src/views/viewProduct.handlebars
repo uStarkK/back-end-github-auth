@@ -17,37 +17,57 @@
         </script>
     </div>
     {{#if title}}
-    <div style="display: flex; flex-wrap: wrap; justify-content: space-evenly;">
-        <div style="display: flex;
+    <div id="productContainer" style="display: flex; flex-wrap: wrap; justify-content: space-evenly;">
+        <div id="productInfo" style="display: flex;
     flex-direction: column;
     justify-content: space-between;
     color: rgb(0, 0, 0);
     margin-top: 3%;
     background-color: rgb(201, 195, 195);
-    width: 15%;
+    width: 25%;
     border-radius: 10px;
     text-align: center;
     padding-bottom: 1%;
     margin-right: 3%;">
             <div>
-                <h1>
+                <h1 id="title">
                     {{title}}
                 </h1>
-                <h2>
-                    ${{price}}
+                <div style="border: solid; border-radius: 5px">
+                    <h3 id="desc">{{desc}}</h3>
+                </div>
+                <h2 id="price">
+                    Price: ${{price}}
                 </h2>
-                <h2>
-                    {{desc}}
+                <h2 id="stock">
+                    Stock: {{stock}}
                 </h2>
-                <h2>
-                    Stock:{{stock}}
-                </h2>
-                <h2>
+                <h2 id="category">
                     Category: {{category}}
                 </h2>
             </div>
-            <button onclick="addProductToCart(`{{id}}`)">Add to cart</button>
+            <button style="width:30%; align-self: center" onclick="addProductToCart(`{{id}}`)">Add to cart</button>
+            {{#if (isAuthorized user.role)}}
+            <div>
+                <button
+                    style="background-color:rgb(42, 207, 42); border-radius:8px; padding:2%; margin:1%; text-shadow:0 0 black"
+                    onclick="toggleForm()">Edit Product</button>
+            </div>
+            <div><button
+                    style="background-color:red; border-radius:8px; padding:5%; font-size: 18px; text-shadow:0 0 black"
+                    onclick="deleteProduct(`{{id}}`)">Delete product</button></div>
+            {{/if}}
         </div>
+    </div>
+    <div id="formContainer" style="display: none;">
+        <form id="updateProductForm">
+            Title: <input type="text" id="updateTitle" value="{{title}}"><br>
+            Price: <input type="number" id="updatePrice" value="{{price}}" min="0" max="9999"><br>
+            Description: <input style="wi" type="text" id="updateDesc" value="{{desc}}"><br>
+            Stock: <input type="number" id="updateStock" value="{{stock}}" min="0" max="9999"><br>
+            Category: <input type="text" id="updateCategory" value="{{category}}"><br>
+            <button type="button" onclick="submitForm('{{id}}')">Submit</button>
+        </form>
     </div>
     {{else}}
     No hay ningun producto cargado

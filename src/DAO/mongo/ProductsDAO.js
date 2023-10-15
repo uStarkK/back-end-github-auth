@@ -15,10 +15,10 @@ class ProductsDAO{
     async fetchAndUpdate(filter, update){
         return await ProductsModel.findOneAndUpdate(filter, update, {new: true, runValidators: true})
     }
-    async updateInDB(filter, update){
+    async updateOne(filter, update){
         return await ProductsModel.updateOne(filter, update)
     }
-    async deleteFromDB(pid){
+    async deleteOne(pid){
         return await ProductsModel.deleteOne({ _id: pid})
     }
     async paginate(query, pagination){

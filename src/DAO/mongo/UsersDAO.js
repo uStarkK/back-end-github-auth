@@ -4,7 +4,7 @@ import { UserModel } from "./models/users.model.js";
 
 class UserDAO {
     async fetchAllUsers(){
-        return await UserModel.find({})
+        return await UserModel.find({}).lean().exec()
     }
     async fetchById(uid){
         return await UserModel.findOne({_id: uid})

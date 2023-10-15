@@ -1,6 +1,8 @@
+import { CartModel } from '../DAO/mongo/models/carts.model.js';
 import { UserModel } from '../DAO/mongo/models/users.model.js';
 import UsersDAO from '../DAO/mongo/UsersDAO.js';
 import { logger } from '../Utils/logger.js';
+import CartService from './CartService.js';
 import CustomError from './errorHandling/CustomError.js';
 import HandledErrors from './errorHandling/ErrorCode.js';
 import { generateUserErrorInfo, getErrorCause} from './errorHandling/info.js';
@@ -32,7 +34,19 @@ class UserService {
     }
 
     async deleteOne(uid) {
+        const user = await this.getOne(uid)
+        if(user.role === "admin"){
+            logger.error("Cannot delete an admin user")
+            CustomError.createError({
+                name: "Lacking Permissions",
+                cause: "Error",
+                msg: "You cannot delete this user due to lack of permissions",
+                code: HandledErrors.VALIDATION_ERROR
+            })
+            
+        }
         const deleted = await UserModel.deleteOne({ _id: uid });
+        await CartService.deleteCart(user.cartId)
         return deleted;
     }
 

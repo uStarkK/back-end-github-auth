@@ -6,20 +6,7 @@ function deleteProductWithSocket(id) {
     socket.emit('product:delete', id)
 }
 
-async function deleteProduct(id) {
-    const response = await fetch(`/api/products/${id}`, {
-        method: 'delete'
-    })
 
-    if (response.ok) {
-        const li = document.querySelector(`li[data-product-id="${id}"]`);
-        if (li) {
-            li.remove();
-        }
-    } else {
-        alert('Could not delete product');
-    }
-}
 
 
 try {

@@ -36,11 +36,11 @@ usersRouter.get('/', isUser, isAdmin, async (req, res) => {
 });
 
 
-usersRouter.delete("/", async (req, res) => {
+usersRouter.delete("/", isAdmin, async (req, res) => {
     try {
         const users = await UserService.getAll()
         const currentTime = moment()
-        const cutoffTime = moment(currentTime).subtract(2, "minutes")
+        const cutoffTime = moment(currentTime).subtract(2, "days")
         const inactiveUsers = users.filter(user => {
             const lastConnectionTime = moment(user.lastConnection);
             return lastConnectionTime.isBefore(cutoffTime)
@@ -70,8 +70,10 @@ usersRouter.delete("/", async (req, res) => {
 
 
 
-usersRouter.delete('/:id', async (req, res) => {
+usersRouter.delete('/:id', isAdmin, async (req, res) => {
     try {
+        const uid = req.params.id
+        await UserService.deleteOne(uid)
         return res.status(200).json({
             status: 'success',
             msg: 'user deleted',
@@ -87,7 +89,7 @@ usersRouter.delete('/:id', async (req, res) => {
     }
 });
 
-usersRouter.put('/:uid', async (req, res) => {
+usersRouter.put('/:uid', isAdmin, async (req, res) => {
     try {
         const { uid } = req.params;
         const { firstName, lastName, email, role } = req.body;

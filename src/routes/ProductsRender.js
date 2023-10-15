@@ -31,7 +31,7 @@ productsRender.get("/", async (req, res, next) => {
         }
         const queryResult = await ProductsModel.paginate(queryMongo, { ...queryOptions });
         const { docs, ...rest } = queryResult
-        return res.status(200).render("home", { docs, sort, query, pagination: rest })
+        return res.status(200).render("home", {docs, sort, query, pagination: rest })
     } catch (err) {
         req.logger.error("error")
     }
@@ -41,10 +41,12 @@ productsRender.get("/", async (req, res, next) => {
 productsRender.get("/products/:pid", async (req, res) => {
     try {
         const productId = req.params.pid;
-
+        const user = {role: req.session?.user?.role, id: req.session?.user?.id};
+        console.log(user)
         const product = await ProductsModel.findOne({ _id: productId }).lean().exec()
+        console.log(product.owner)
         const {title, price, desc, stock, category, _id} = product
-        return res.status(200).render("viewProduct", {title, price, desc, stock, category, id: _id})
+        return res.status(200).render("viewProduct", {title, price, desc, stock, category, id: _id, user})
     } catch (err) {
         req.logger.error(err)
     }

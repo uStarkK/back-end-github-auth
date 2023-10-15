@@ -59,7 +59,7 @@ export function iniPassport() {
                         firstName,
                         lastName,
                         age,
-                        isAdmin: false,
+                        role,
                         password: createHash(password),
                         cartId: await CartService.assignCart()
                     };

@@ -1,6 +1,7 @@
 //@ts-check
 import { model, Schema } from "mongoose";
 import mongoosePaginate from "mongoose-paginate-v2";
+import {generateProductCode} from "../../../Utils/utils.js";
 
 const productsSchema = new Schema({
     title: {
@@ -17,8 +18,7 @@ const productsSchema = new Schema({
     },
     code:{
         type: String,
-        required:true,
-        unique: true
+        default: generateProductCode()
     },
     category: {
         type: String,
@@ -31,6 +31,11 @@ const productsSchema = new Schema({
     status: {
         type: Boolean,
         default: true
+    },
+    owner: {
+        type: Schema.Types.ObjectId,
+        ref: "users",
+        default: null
     }
 })
 

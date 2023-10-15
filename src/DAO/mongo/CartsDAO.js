@@ -19,6 +19,9 @@ class CartsDAO {
     async saveCart(cid){
         return await this.fetchCartById(cid).save()
     }
+    async deleteCart(cid){
+        return await CartModel.deleteOne({_id: cid})
+    }
 }
 
 
