@@ -3,6 +3,9 @@ const API_URL = window.location.protocol + '//' + window.location.host + '/' + "
 let cartId = sessionStorage.getItem("cart")
 console.log(cartId)
 function addProductToCart(pid) {
+    if( !cartId ){
+        alert("You must be logged-in to add products into your cart")
+    }
     const quantity = document.getElementById(`quantity_input_${pid}`).value;
     
     console.log(JSON.stringify(quantity))
