@@ -13,7 +13,7 @@ class TicketService{
         if(!ticket){
             CustomError.createError({
                 name: "Ticket not found",
-                cause: getErrorCause(this.name),
+                cause: getErrorCause("Ticket not found"),
                 msg: "An error occurred while trying to find the requested ticket",
                 code: HandledErrors.RESOURCE_NOT_FOUND_ERROR
             })

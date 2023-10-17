@@ -54,7 +54,7 @@ class UserService {
         if (!uid) {
             CustomError.createError({
                 name: "Invalid id",
-                cause: getErrorCause(this.name),
+                cause: getErrorCause("Invalid id"),
                 msg: "An error occurred while trying to process the last request",
                 code: HandledErrors.INVALID_TYPES_ERROR
             })

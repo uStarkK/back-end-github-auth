@@ -24,7 +24,7 @@ class CartsService {
         if (!cart) {
             CustomError.createError({
                 name: "Cart not found",
-                cause: getErrorCause(this.name),
+                cause: getErrorCause("Cart not found"),
                 msg: "An error occurred while trying to find the requested cart",
                 code: HandledErrors.RESOURCE_NOT_FOUND_ERROR
             })
@@ -207,7 +207,7 @@ class CartsService {
             if (!productFound) {
                 CustomError.createError({
                     name: "Product not found",
-                    cause: getErrorCause(this.name),
+                    cause: getErrorCause("Product not found"),
                     msg: "An error occurred while trying to find the requested product",
                     code: HandledErrors.RESOURCE_NOT_FOUND_ERROR
                 })
@@ -215,7 +215,7 @@ class CartsService {
             if (productFound.stock === 0) {
                 CustomError.createError({
                     name: "Not enough stock",
-                    cause: getErrorCause(this.name),
+                    cause: getErrorCause("Not enough stock"),
                     msg: "An error occurred while trying to process the last request",
                     code: HandledErrors.STOCK_RELATED_ERROR
                 })
@@ -240,7 +240,7 @@ class CartsService {
         if (!cart) {
             CustomError.createError({
                 name: "Cart not found",
-                cause: getErrorCause(this.name),
+                cause: getErrorCause("Cart not found"),
                 msg: "An error occurred while trying to find the requested cart",
                 code: HandledErrors.RESOURCE_NOT_FOUND_ERROR
             })
@@ -250,7 +250,7 @@ class CartsService {
         if (!product) {
             CustomError.createError({
                 name: "Product not found",
-                cause: getErrorCause(this.name),
+                cause: getErrorCause("Product not found"),
                 msg: "An error occurred while trying to find the requested product",
                 code: HandledErrors.RESOURCE_NOT_FOUND_ERROR
             })

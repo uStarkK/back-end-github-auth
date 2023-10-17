@@ -28,7 +28,6 @@ class ProductService {
     }
     async getById(pid) {
         const product =  await ProductsDAO.fetchById(pid)
-        console.log("asdasd")
         if(!product){
             CustomError.createError({
                 name: "Product not found",
