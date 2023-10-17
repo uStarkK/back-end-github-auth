@@ -3,14 +3,23 @@ const API_URL = window.location.protocol + '//' + window.location.host + '/' + "
 let cartId = sessionStorage.getItem("cart")
 console.log(cartId)
 function addProductToCart(pid) {
+    const quantity = document.getElementById(`quantity_input_${pid}`).value;
+    
+    console.log(JSON.stringify(quantity))
     const url = `${API_URL}carts/${cartId}/products/${pid}`;
     fetch(url, {
-        method: 'PUT'
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ quantity: quantity }),
     })
-        .then(response => response.json())
-        .then(data => {
-            // Handle the response data
-            console.log(data);
+        .then(response => {
+            if(response.ok){
+                console.log("Product updated in cart")
+            }else{
+                console.error("Error updating product in cart")
+            }
         })
         .catch(error => {
             // Handle any errors
@@ -19,13 +28,15 @@ function addProductToCart(pid) {
 }
 
 function deleteProduct(pid) {
-    const url = `${API_URL}carts/${cartId}/products/${pid}`
+    const url = `${API_URL}products/${pid}`
     fetch(url, {
         method: "DELETE"
     })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data)
+        .then(response => {
+            if(response.ok){
+                alert("Product deleted")
+                console.log("Product deleted succesfully")
+            }
         }).catch(error => {
             console.error(error)
         })
@@ -111,7 +122,7 @@ function submitProduct(){
             window.location.href = "/"
         }else{
             console.error("Could not add product")
-            alert("Error addingproduct")
+            alert("Error adding product")
         }
     })
     hideForm()

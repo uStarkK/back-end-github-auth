@@ -17,8 +17,7 @@ const productsSchema = new Schema({
         required: true
     },
     code:{
-        type: String,
-        default: generateProductCode()
+        type: String
     },
     category: {
         type: String,

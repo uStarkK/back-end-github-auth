@@ -79,3 +79,46 @@
 2023-10-11T20:34:18.711Z error: undefined
 2023-10-11T20:34:31.878Z error: Cannot delete an admin user
 2023-10-11T20:34:31.880Z error: Lacking Permissions
+2023-10-16T19:02:10.334Z error: User Not Found with username (email) c@c
+2023-10-16T19:02:10.514Z error: Failed to login, invalid credentials
+2023-10-16T19:02:20.175Z error: User Not Found with username (email) a@a
+2023-10-16T19:02:20.349Z error: Failed to login, invalid credentials
+2023-10-16T19:02:31.365Z error: User Not Found with username (email) a@.com
+2023-10-16T19:02:31.552Z error: Failed to login, invalid credentials
+2023-10-16T19:53:09.954Z error: undefined
+2023-10-16T19:53:17.168Z error: undefined
+2023-10-16T19:53:40.771Z error: undefined
+2023-10-16T19:54:39.331Z error: undefined
+2023-10-16T19:54:53.173Z error: undefined
+2023-10-16T19:55:52.093Z error: undefined
+2023-10-16T19:56:01.049Z error: TypeError: Cannot read properties of null (reading 'owner')
+2023-10-16T19:58:57.451Z error: Lacking Permissions
+2023-10-16T20:00:10.067Z error: Lacking Permissions
+2023-10-16T20:01:00.163Z error: Lacking Permissions
+2023-10-16T20:01:29.642Z error: Lacking Permissions
+2023-10-16T20:01:43.698Z error: Lacking Permissions
+2023-10-16T20:01:59.502Z error: Lacking Permissions
+2023-10-16T20:02:20.395Z error: Lacking Permissions
+2023-10-16T20:02:35.732Z error: Lacking Permissions
+2023-10-16T20:03:12.106Z error: Lacking Permissions
+2023-10-16T20:03:18.544Z error: Lacking Permissions
+2023-10-16T20:19:14.273Z error: Lacking Permissions
+2023-10-16T20:19:19.493Z error: Lacking Permissions
+2023-10-16T20:21:36.060Z error: Lacking Permissions
+2023-10-16T20:22:10.344Z error: Lacking Permissions
+2023-10-16T20:23:56.403Z error: Lacking Permissions
+2023-10-16T20:24:26.154Z error: Lacking Permissions
+2023-10-16T20:25:29.574Z error: Lacking Permissions
+2023-10-16T20:26:10.292Z error: Lacking Permissions
+2023-10-16T20:26:38.935Z error: Lacking Permissions
+2023-10-16T20:27:09.919Z error: Lacking Permissions
+2023-10-16T20:36:23.321Z error: undefined
+2023-10-16T20:36:33.181Z error: undefined
+2023-10-16T20:36:44.230Z error: undefined
+2023-10-16T20:37:10.739Z error: undefined
+2023-10-16T20:43:57.203Z error: undefined
+2023-10-16T20:44:02.078Z error: undefined
+2023-10-16T20:44:10.415Z error: undefined
+2023-10-16T20:44:43.317Z error: undefined
+2023-10-16T20:45:07.398Z error: undefined
+2023-10-16T20:51:34.171Z error: Lacking Permissions

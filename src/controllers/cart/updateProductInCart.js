@@ -5,11 +5,9 @@ import { sendErrorResponse } from "../../Utils/utils.js";
 export const updateProductInCart = async (req, res) => {
     try {
         const cartId = req.params.cid;
-        const data = req.body;
+        const {quantity} = req.body
         const productId = req.params.pid;
-        const productFound = await ProductsModel.findOne({ _id: productId });
-
-        const updatedCart = await CartService.updateProductInCart(cartId, productId, data);
+        const updatedCart = await CartService.updateProductInCart(cartId, productId, quantity);
         res.status(200).json({
             status: "success",
             payload: updatedCart

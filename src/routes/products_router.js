@@ -15,7 +15,7 @@ productsRouter.get("/:pid", getProductByid)
 
 productsRouter.post("/", isUser, isPremium, createProduct)
 
-productsRouter.put("/:pid", isUser, isAdmin, updateProduct)
+productsRouter.put("/:pid", isUser, isPremium, updateProduct)
 
 productsRouter.delete("/:pid", isUser, isPremium, deleteProduct)
 

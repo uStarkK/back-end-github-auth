@@ -1,4 +1,4 @@
-export  function getErrorCause(errorName) {
+export function getErrorCause(errorName) {
     switch (errorName) {
         case 'Cart not found':
             return 'The requested cart does not exist';
@@ -10,24 +10,26 @@ export  function getErrorCause(errorName) {
             return 'There are no available items in the cart for purchase.';
         case 'Ticket not found':
             return 'The requested ticket does not exist.';
-            
+
         case "Invalid id":
-            return "Invalid id"
+            return "Invalid id";
+        case "Lacking permissions":
+            return "You lack permissions to perform this operation";
         default:
             return 'Unknown cause';
     }
 }
 
-export  function generateUserErrorInfo(user){
-            return `One or more properties were incomplete or not valid.
+export function generateUserErrorInfo(user) {
+    return `One or more properties were incomplete or not valid.
             List of required properties:
             * firstName: Has to be a string. Received ${user.firstName}
             * lastName: Has to be a string. Received ${user.lastName}
             * email: Has to be a string. received ${user.email}`;
 }
 
-export  function generateProductErrorInfo(product){
-            return `One or more properties were incomplete or not valid.
+export function generateProductErrorInfo(product) {
+    return `One or more properties were incomplete or not valid.
             List of required properties:
             * title: Has to be a string. Received ${product.title}}
             * price: Has to be a number. Received ${product.price}

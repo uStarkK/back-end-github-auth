@@ -10,7 +10,7 @@ class ProductsDAO{
         return await ProductsModel.find({})
     }
     async fetchById(pid){
-        return await ProductsModel.findOne({ _id: pid})
+        return await ProductsModel.findOne({ _id: pid}).populate("owner")
     }
     async fetchAndUpdate(filter, update){
         return await ProductsModel.findOneAndUpdate(filter, update, {new: true, runValidators: true})

@@ -72,7 +72,7 @@ const hbs = handlebars.create({
         eq: function (a, b) {
             return a === b;
         },
-        isAuthorized: function(role, userId, productOwner){
+        isAuthorized: function(role){
             if(role === "admin"){
                 return true
             }

@@ -5,6 +5,7 @@ export const createProduct = async (req, res) => {
     try {
         const { ...newProduct } = req.body;
         const uid = req.session?.user?.id
+        console.log(req.session?.user)
         const productCreated = await ProductService.createOne(newProduct, uid)
         return res.json({
             status: "success",
