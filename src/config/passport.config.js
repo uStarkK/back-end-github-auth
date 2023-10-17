@@ -83,7 +83,7 @@ export function iniPassport() {
             {
                 clientID: CLIENT_ID,
                 clientSecret: CLIENT_SECRET,
-                callbackURL: 'http://localhost:8080/api/sessions/githubcallback',
+                callbackURL: 'https://ecommerce-refachero.up.railway.app/api/sessions/githubcallback',
             },
             async (accesToken, _, profile, done) => {
                 logger.debug(profile)
