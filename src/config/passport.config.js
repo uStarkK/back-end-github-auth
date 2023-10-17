@@ -59,7 +59,6 @@ export function iniPassport() {
                         firstName,
                         lastName,
                         age,
-                        role,
                         password: createHash(password),
                         cartId: await CartService.assignCart()
                     };

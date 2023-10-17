@@ -1,11 +1,15 @@
 <script src="/js/profile.js"></script>
 <h1>My Profile</h1>
+<div style="margin-bottom: 2%;">
+<a href='/auth/logout'>logout!</a>
+</div>
+<br />
 Name: {{user.firstName}} {{user.lastName}}
 <br />
 {{#if user.age}}
 Age: {{user.age}}
 {{/if}}
-<br/>
+<br />
 email:
 {{user.email}}
 <br />
@@ -18,8 +22,17 @@ Role:
     <a href='/'>Go to Products</a>
 </div>
 <div>
-    <a href="#">My tickets</a>
+    <a href="#" onclick="showTickets()">My tickets</a>
+</div>
+<div id="tickets_container" style="display: none;">
+    <ul>
+        {{#each userTickets}}
+        <li>
+            <p>Total Amount: ${{this.amount}}</p>
+            <p>Purchased At: {{this.purchase_datetime}}</p>
+        </li>
+        {{/each}}
+    </ul>
 </div>
 
 
-<a href='/auth/logout'>logout!</a>

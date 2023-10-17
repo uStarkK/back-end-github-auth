@@ -1,6 +1,7 @@
 
 import CartsDAO from "../DAO/mongo/CartsDAO.js";
 import { ProductsModel } from "../DAO/mongo/models/products.model.js";
+import { logger } from "../Utils/logger.js";
 import { generateTicketCode } from "../Utils/utils.js";
 import CustomError from "./errorHandling/CustomError.js";
 import HandledErrors from "./errorHandling/ErrorCode.js";
@@ -25,7 +26,7 @@ class CartsService {
             CustomError.createError({
                 name: "Cart not found",
                 cause: getErrorCause("Cart not found"),
-                msg: "An error occurred while trying to find the requested cart",
+                message: "An error occurred while trying to find the requested cart",
                 code: HandledErrors.RESOURCE_NOT_FOUND_ERROR
             })
         }
@@ -36,9 +37,6 @@ class CartsService {
         return await CartsDAO.assignCart()
     }
 
-    async saveCart(cid) {
-        return await CartsDAO.saveCart(cid)
-    }
 
     async deleteCart(cid){
         return await CartsDAO.deleteCart(cid)
@@ -47,7 +45,7 @@ class CartsService {
     async clearCart(cid) {
         const cartFound = await this.getById(cid)
         cartFound.items = [];
-        await this.saveCart(cid)
+        return cartFound.save()
     }
 
     async clearCartAfterPurchase(cid, uid) {
@@ -79,7 +77,7 @@ class CartsService {
             CustomError.createError({
                 name: "No items available for purchase",
                 cause: getErrorCause("No items available for purchase"),
-                msg: "An error occurred while trying to process the last request",
+                message: "An error occurred while trying to process the last request",
                 code: HandledErrors.RESOURCE_NOT_FOUND_ERROR
             })
         }
@@ -89,14 +87,14 @@ class CartsService {
                 CustomError.createError({
                     name: "Lacking permissions",
                     cause: getErrorCause("Lacking permissions"),
-                    msg: "An error occurred while trying to process the last request",
+                    message: "An error occurred while trying to process the last request",
                     code: HandledErrors.VALIDATION_ERROR
                 })
         }
 
         const ticket = await TicketService.createOne({
             code: await generateTicketCode(),
-            amount: totalAmount,
+            amount: totalAmount.toFixed(2),
             purchaser: user.email
         })
         if (itemsToKeep[0]) {
@@ -123,18 +121,17 @@ class CartsService {
     }
 
 
-    async addProductToCart(cid, pid, uid) {
+    async addProductToCart(cid, pid, uid, quantity) {
         const product = await ProductsModel.findOne({ _id: pid }).lean()
         const cart = await this.getById(cid)
         const user = await UserService.getOne(uid)
-        const productIndex = cart.items.findIndex(ele => ele.items._id.toString() === pid)
 
-        if (productIndex === -1) {
+        if (product) {
             if (product.stock === 0){
                 CustomError.createError({
                     name: "Not enough stock",
                     cause: getErrorCause("Not enough stock"),
-                    msg: "An error occurred while trying to process the last request",
+                    message: "An error occurred while trying to process the last request",
                     code: HandledErrors.VALIDATION_ERROR
                 })
             }
@@ -143,25 +140,26 @@ class CartsService {
                 CustomError.createError({
                     name: "Lacking permissions",
                     cause: getErrorCause("Lacking permissions"),
-                    msg: "An error occurred while trying to process the last request",
+                    message: "An error occurred while trying to process the last request",
                     code: HandledErrors.VALIDATION_ERROR
                 })
             }
             cart.items.push({
                 productId: product._id,
-                quantity: 1
+                quantity: quantity
             })
+            return cart.save()
         }
     }
 
-    async updateProductInCart(cid, pid, quantity) {
+    async updateProductInCart(cid, pid, quantity, uid) {
         const cart = await this.getById(cid)
         
         if (!cart) {
             CustomError.createError({
                 name: "Cart not found",
                 cause: getErrorCause("Cart not found"),
-                msg: "An error occurred while trying to find the requested cart",
+                message: "An error occurred while trying to find the requested cart",
                 code: HandledErrors.RESOURCE_NOT_FOUND_ERROR
             })
         }
@@ -170,7 +168,7 @@ class CartsService {
             CustomError.createError({
                 name: "Product not found",
                 cause: getErrorCause("Product not found"),
-                msg: "An error occurred while trying to find the requested product",
+                message: "An error occurred while trying to find the requested product",
                 code: HandledErrors.RESOURCE_NOT_FOUND_ERROR
             })
         }
@@ -182,19 +180,16 @@ class CartsService {
                 }
             },
             {
-                $set: { 'items.$.quantity': quantity || 1 }
+                $set: { 'items.$.quantity': quantity }
             }
         );
 
         if (result) {
             // Quantity of existing item modified
+            result.save()
             return result;
         } else {
-            // Item not found, add product to cart
-            const updatedCart = await CartsDAO.fetchAndUpdate(
-                { _id: cid },
-                { $push: { items: { productId: pid, quantity: quantity || 1 } } }
-            );
+            const updatedCart = this.addProductToCart(cid, pid, uid, quantity)
             return updatedCart
         }
     }
@@ -208,7 +203,7 @@ class CartsService {
                 CustomError.createError({
                     name: "Product not found",
                     cause: getErrorCause("Product not found"),
-                    msg: "An error occurred while trying to find the requested product",
+                    message: "An error occurred while trying to find the requested product",
                     code: HandledErrors.RESOURCE_NOT_FOUND_ERROR
                 })
             }
@@ -216,7 +211,7 @@ class CartsService {
                 CustomError.createError({
                     name: "Not enough stock",
                     cause: getErrorCause("Not enough stock"),
-                    msg: "An error occurred while trying to process the last request",
+                    message: "An error occurred while trying to process the last request",
                     code: HandledErrors.STOCK_RELATED_ERROR
                 })
             }
@@ -241,7 +236,7 @@ class CartsService {
             CustomError.createError({
                 name: "Cart not found",
                 cause: getErrorCause("Cart not found"),
-                msg: "An error occurred while trying to find the requested cart",
+                message: "An error occurred while trying to find the requested cart",
                 code: HandledErrors.RESOURCE_NOT_FOUND_ERROR
             })
         }
@@ -251,7 +246,7 @@ class CartsService {
             CustomError.createError({
                 name: "Product not found",
                 cause: getErrorCause("Product not found"),
-                msg: "An error occurred while trying to find the requested product",
+                message: "An error occurred while trying to find the requested product",
                 code: HandledErrors.RESOURCE_NOT_FOUND_ERROR
             })
         }

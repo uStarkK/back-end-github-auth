@@ -56,12 +56,15 @@
             <div>
                 <p>Price: ${{ this.price }}</p>
                 <p>Stock: {{this.stock}}</p>
-            </div> 
+            </div>
+            {{#if (hasStock this.stock)}}
             <div>
-                    <input type="number" min="1" max="{{this.stock}}" id="quantity_input_{{this._id}}" value="1">
-                </div>
+                <input type="number" min="1" max="{{this.stock}}" id="quantity_input_{{this._id}}" value="1">
+            </div>
+            <div>
                 <button onclick="addProductToCart(`{{this.id}}`)">Add to cart</button>
-            
+            </div>
+            {{/if}}
         </div>
 
 
@@ -89,21 +92,21 @@
     {{#if (isAuthorized user.role)}}
     <div>
         <div>
-        <button onclick="toggleForm()">Add new product...</button>
+            <button onclick="toggleForm()">Add new product...</button>
         </div>
         <div id="formContainer" style="display: none;">
-        <form id="updateProductForm">
-            Title: <input type="text" id="title" ><br>
-            Price: <input type="number" id="price"  min="0" max="9999"><br>
-            Description: <input style="wi" type="text" id="desc" ><br>
-            Stock: <input type="number" id="stock" min="0" max="9999"><br>
-            Category: <input type="text" id="category"><br>
-            <div style="display: flex; ">
-            <button type="button" onclick="submitProduct()" style="margin: 1%;">Submit</button>
-            <button type="button" onclick="hideForm()" style="margin: 1%;">Cancel</button>
-            </div>
-        </form>
-    </div>
+            <form id="updateProductForm">
+                Title: <input type="text" id="title"><br>
+                Price: <input type="number" id="price" min="0" max="9999"><br>
+                Description: <input style="wi" type="text" id="desc"><br>
+                Stock: <input type="number" id="stock" min="0" max="9999"><br>
+                Category: <input type="text" id="category"><br>
+                <div style="display: flex; ">
+                    <button type="button" onclick="submitProduct()" style="margin: 1%;">Submit</button>
+                    <button type="button" onclick="hideForm()" style="margin: 1%;">Cancel</button>
+                </div>
+            </form>
+        </div>
     </div>
     {{/if}}
 </div>

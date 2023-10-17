@@ -3,7 +3,7 @@ import { TicketModel } from "./models/tickets.model.js";
 
 class TicketDAO{
     async fetchAll(){
-        return await TicketModel.find({})
+        return await TicketModel.find({}).lean().exec()
     }
     async fetchOne(tid){
         return await TicketModel.findOne({_id: tid})

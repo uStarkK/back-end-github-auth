@@ -6,6 +6,7 @@ export const addToCart = async (req, res) => {
         const cartId = req.params.cid;
         const productId = req.params.pid;
         const uid = req.session?.user.id
+        
         CartService.addProductToCart(cartId, productId, uid)
         return res.status(200).json({
             status: "Success",

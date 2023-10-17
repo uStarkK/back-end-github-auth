@@ -1,3 +1,4 @@
+<script src="/js/cart.js"></script>
 <div>
     <h1>Bienvenido al carrito!</h1>
     <div id="goToProducts">
@@ -16,6 +17,7 @@
         </script>
     </div>
     {{#if items}}
+    <button onclick="clearCart()">Clear Cart</button>
     <div style="display: flex; flex-wrap: wrap; justify-content: space-evenly;">
         {{#each items}}
         <div style="display: flex;
@@ -38,7 +40,7 @@
                     ${{this.productId.price}}
                 </h2>
                 <h2>
-                    Amount: {{this.quantity}}
+                    <input type="number" min="1" max={{this.productId.stock}} value="{{this.quantity}}" id="quantity_input_cart_{{this.productId._id}}" oninput="handleInput(`{{this.productId._id}}`)">
                 </h2>
                 <h2>
                     Category: {{this.productId.category}}
@@ -48,7 +50,11 @@
         {{/each}}
     </div>
     <div>
-        <script src="/js/cart.js"></script>
+        <div class="purchaseContainer" style="display: flex;">
+    <div>
+        <h3>Final price: <span id="total_price">${{totalPrice}}</span></h3>
+    </div>
+</div>
         <button onclick="finishPurchase()">Finish Purchasing</button>
     </div>
     {{else}}

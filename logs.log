@@ -122,3 +122,26 @@
 2023-10-16T20:44:43.317Z error: undefined
 2023-10-16T20:45:07.398Z error: undefined
 2023-10-16T20:51:34.171Z error: Lacking Permissions
+2023-10-17T20:06:56.559Z error: You cannot buy your own products
+2023-10-17T20:07:56.491Z error: You cannot buy your own products
+2023-10-17T20:38:37.275Z error: You cannot buy your own products
+2023-10-17T21:48:01.871Z error: undefined
+2023-10-17T21:49:01.737Z error: undefined
+2023-10-17T21:49:29.563Z error: undefined
+2023-10-17T21:49:44.637Z error: undefined
+2023-10-17T21:49:50.362Z error: undefined
+2023-10-17T21:50:12.393Z error: undefined
+2023-10-17T21:50:19.654Z error: undefined
+2023-10-17T21:50:41.037Z error: undefined
+2023-10-17T21:52:21.673Z error: undefined
+2023-10-17T21:52:57.427Z error: TypeError: Assignment to constant variable.
+2023-10-17T21:52:58.417Z error: TypeError: Assignment to constant variable.
+2023-10-17T21:53:07.292Z error: TypeError: Assignment to constant variable.
+2023-10-17T21:53:08.350Z error: TypeError: Assignment to constant variable.
+2023-10-17T21:53:26.422Z error: undefined
+2023-10-17T21:54:20.376Z error: undefined
+2023-10-17T21:54:32.764Z error: undefined
+2023-10-17T21:55:32.338Z error: Assignment to constant variable.
+2023-10-17T22:10:54.537Z error: You cannot buy your own products
+2023-10-17T22:22:06.922Z error: Error in register
+2023-10-17T22:22:06.923Z error: undefined

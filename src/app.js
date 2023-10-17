@@ -79,6 +79,11 @@ const hbs = handlebars.create({
             if(role === "premium"){
                 return true
             }
+        },
+        hasStock: function(stock){
+            if(stock > 0){
+                return true
+            }
         }
     }
 });

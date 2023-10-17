@@ -18,3 +18,11 @@ if (!sessionStorage.getItem("cart")) {
 }else{
     cartId = sessionStorage.getItem("cart")
 }
+
+
+
+function showTickets(){
+    const ticketsContainer = document.getElementById("tickets_container")
+
+    ticketsContainer.style.display = ticketsContainer.style.display === "block"? "none" : "block"
+}
