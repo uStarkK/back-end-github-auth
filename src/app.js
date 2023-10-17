@@ -30,7 +30,7 @@ const { DB, SESSION_SECRET } = process.env
 
 
 // SERVER 
-const PORT = 8080
+const PORT = process.env.PORT || 8080
 const app = express()
 
 
