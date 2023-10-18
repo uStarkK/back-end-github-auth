@@ -1,3 +1,4 @@
+import { sendErrorResponse } from "../../Utils/utils.js";
 
 export const loginRedirect = (req, res) => {
     if (req.user) {                                  //If user is ALREADY logged in, redirects to profile

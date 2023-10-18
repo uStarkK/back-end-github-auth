@@ -75,7 +75,6 @@ class UserService {
     async recoverPassword(email) {
         try {
             const existingCode = await UsersDAO.findRecoveryCode(email)
-            console.log(existingCode)
             if (existingCode == []) {
                 console.log(existingCode, "ENTRE AL IF")
                 for (const code of existingCode) {
@@ -97,7 +96,6 @@ class UserService {
                 }
                 return;
             }
-            console.log("NO ENTRÉ AL IF")
             const newCode = uuidv4().toString();
             const expire = new Date(new Date().getTime() + 3600000); // Expires in 1 hour after being generated
             const hashedCode = createHash(newCode);
@@ -132,10 +130,10 @@ class UserService {
         try {
             const realCode = await UsersDAO.findRecoveryCode(verify.email);
             if (realCode && isValidPassword(verify.code, realCode)) {
-                console.log('Code found');
+                logger.info("Recovery code exists");
                 const newPassword = createHash(verify.password);
                 await UsersDAO.updatePassword(verify.email, newPassword);
-                console.log('Password updated')
+                logger.info("Password updated")
             }
         } catch (error) {
             logger.error(error);
