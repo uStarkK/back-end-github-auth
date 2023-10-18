@@ -1,3 +1,4 @@
+import { RecoveryCodesModel } from "./models/recoveryCodes.js";
 import { UserModel } from "./models/users.model.js";
 
 
@@ -17,6 +18,16 @@ class UserDAO {
     }
     async updateUser(uid, firstName, lastName, email){
         return await UserModel.updateOne({ _id: uid }, { firstName, lastName, email });
+    }
+    async createRecoveryCode(code){
+        await RecoveryCodesModel.create(code);
+    }
+    async findRecoveryCode(email){
+        const foundCode = await RecoveryCodesModel.find({email: email})
+        return foundCode
+    }
+    async updatePassword(email, newPassword){
+        await UserModel.updateOne({email}, {$set: {password: newPassword}})
     }
 }
 

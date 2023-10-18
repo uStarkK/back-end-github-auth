@@ -37,7 +37,19 @@ async function clearCart(){
     location.reload()
 }
 
+document.addEventListener('input', function(event) {
+    if (event.target.id && event.target.id.startsWith('quantity_input')) {
+        const inputElement = event.target;
+        const pid = inputElement.id.split('_')[2]; // Extract pid from the element's id
 
+        const maxValue = parseInt(inputElement.getAttribute('max'), 10);
+        const parsedValue = parseInt(inputElement.value, 10);
+
+        if (parsedValue > maxValue) {
+            inputElement.value = maxValue;
+        }
+    }
+});
 
 async function handleInput(pid) {
     const quantity = document.getElementById(`quantity_input_cart_${pid}`).value;

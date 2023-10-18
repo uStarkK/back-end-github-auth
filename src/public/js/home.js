@@ -3,11 +3,11 @@ const API_URL = window.location.protocol + '//' + window.location.host + '/' + "
 let cartId = sessionStorage.getItem("cart")
 console.log(cartId)
 function addProductToCart(pid, stock) {
-    if( !cartId ){
+    if (!cartId) {
         alert("You must be logged-in to add products into your cart")
     }
     const quantity = document.getElementById(`quantity_input_${pid}`).value;
-    
+
     console.log(JSON.stringify(quantity))
     const url = `${API_URL}carts/${cartId}/products/${pid}`;
     fetch(url, {
@@ -18,7 +18,7 @@ function addProductToCart(pid, stock) {
         body: JSON.stringify({ quantity: quantity }),
     })
         .then(response => {
-            if(response.ok){
+            if (response.ok) {
                 console.log("Product updated in cart")
             }
         })
@@ -47,7 +47,7 @@ function deleteProduct(pid) {
         method: "DELETE"
     })
         .then(response => {
-            if(response.ok){
+            if (response.ok) {
                 alert("Product deleted")
                 console.log("Product deleted succesfully")
             }
@@ -61,7 +61,7 @@ function toggleForm() {
     const formContainer = document.getElementById('formContainer');
     const productContainer = document.getElementById('productContainer');
     formContainer.style.display = "flex"
-    if(productContainer){
+    if (productContainer) {
         productContainer.style.display = "none"
     }
 }
@@ -94,7 +94,7 @@ function submitForm(id) {
         },
         body: JSON.stringify(updatedProduct)
     }).then(response => {
-        if(response.ok){
+        if (response.ok) {
             alert("Product updated")
             console.log("Product updated succesfully")
         }
@@ -107,13 +107,13 @@ function submitForm(id) {
 }
 
 
-function hideForm(){
+function hideForm() {
     const form = document.getElementById("formContainer")
 
     form.style.display = "none"
 }
 
-function submitProduct(){
+function submitProduct() {
     const title = document.getElementById('title').value;
     const price = document.getElementById('price').value;
     const desc = document.getElementById('desc').value;
@@ -133,7 +133,7 @@ function submitProduct(){
         },
         body: JSON.stringify(newProduct)
     }).then(response => {
-        if(response.ok){
+        if (response.ok) {
             alert("Product submitted")
             console.log("Product submitted succesfully")
         }
@@ -143,5 +143,19 @@ function submitProduct(){
     })
     hideForm()
 }
+
+document.addEventListener('input', function(event) {
+    if (event.target.id && event.target.id.startsWith('quantity_input')) {
+        const inputElement = event.target;
+        const pid = inputElement.id.split('_')[2]; // Extract pid from the element's id
+
+        const maxValue = parseInt(inputElement.getAttribute('max'), 10);
+        const parsedValue = parseInt(inputElement.value, 10);
+
+        if (parsedValue > maxValue) {
+            inputElement.value = maxValue;
+        }
+    }
+});
 
 

@@ -39,6 +39,7 @@
                 <h2>
                     ${{this.productId.price}}
                 </h2>
+                <h2>Stock: {{this.productId.stock}}</h2>
                 <h2>
                     <input type="number" min="1" max={{this.productId.stock}} value="{{this.quantity}}" id="quantity_input_cart_{{this.productId._id}}" oninput="handleInput(`{{this.productId._id}}`)">
                 </h2>
