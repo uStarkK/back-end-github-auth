@@ -1,6 +1,5 @@
 import { CartModel } from "../../../DAO/mongo/models/carts.model.js";
 import { sendErrorResponse } from "../../../Utils/utils.js";
-import CustomError from "../../../services/errorHandling/CustomError.js";
 
 
 

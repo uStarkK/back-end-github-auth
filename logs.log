@@ -168,3 +168,24 @@
 2023-10-18T02:04:07.554Z error: Not enough stock
 2023-10-18T02:39:47.042Z error: undefined
 2023-10-18T02:40:21.215Z error: undefined
+2023-10-18T16:51:06.831Z error: undefined
+2023-10-18T16:51:06.832Z error: undefined
+2023-10-18T16:52:43.095Z error: ValidationError: email: Path `email` is required.
+2023-10-18T16:52:43.096Z error: undefined
+2023-10-18T16:53:17.915Z error: [object Object]
+2023-10-18T16:53:17.916Z error: undefined
+2023-10-18T17:04:03.527Z error: [object Object]
+2023-10-18T17:04:03.528Z error: undefined
+2023-10-18T17:05:06.893Z error: [object Object]
+2023-10-18T17:05:06.894Z error: undefined
+2023-10-18T17:05:17.334Z error: [object Object]
+2023-10-18T17:05:17.335Z error: undefined
+2023-10-18T17:09:36.109Z error: [object Object]
+2023-10-18T17:09:36.110Z error: undefined
+2023-10-18T17:20:57.776Z error: [object Object]
+2023-10-18T17:20:57.776Z error: undefined
+2023-10-18T17:22:42.177Z error: [object Object]
+2023-10-18T17:22:42.179Z error: undefined
+2023-10-18T17:25:52.052Z error: undefined
+2023-10-18T17:26:10.182Z error: undefined
+2023-10-18T17:26:10.183Z error: undefined

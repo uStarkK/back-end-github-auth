@@ -3,9 +3,9 @@ import passport from 'passport';
 import GitHubStrategy from "passport-github2";
 import local from 'passport-local';
 import { UserModel } from '../DAO/mongo/models/users.model.js';
-import CartService from '../services/CartService.js';
-import { createHash, isValidPassword } from '../Utils/utils.js';
 import { logger } from '../Utils/logger.js';
+import { createHash, isValidPassword } from '../Utils/utils.js';
+import CartService from '../services/CartService.js';
 dotenv.config();  // Loads environment variables from .env file
 const { CLIENT_ID, CLIENT_SECRET } = process.env;
 const LocalStrategy = local.Strategy;

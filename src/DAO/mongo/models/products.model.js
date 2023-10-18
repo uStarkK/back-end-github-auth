@@ -1,31 +1,39 @@
 //@ts-check
 import { model, Schema } from "mongoose";
 import mongoosePaginate from "mongoose-paginate-v2";
-import {generateProductCode} from "../../../Utils/utils.js";
 
 const productsSchema = new Schema({
     title: {
         type: String,
-        required: true
+        required: true,
+        min: 5,
+        max: 100
     },
     desc: {
         type: String,
-        required: true
+        required: true,
+        max: 500
     },
     price: {
         type: Number,
-        required: true
+        required: true,
+        min: 1,
+        max: 9999,
     },
     code:{
         type: String
     },
     category: {
         type: String,
-        required: true
+        required: true,
+        min: 1,
+        max: 20
     },
     stock: {
         type: Number,
-        required: true
+        required: true,
+        min: 0,
+        max: 9999,
     },
     status: {
         type: Boolean,

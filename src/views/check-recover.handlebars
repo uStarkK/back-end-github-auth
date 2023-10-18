@@ -1,0 +1,13 @@
+<h1>Enter your recovery code</h1>
+<p>Please verify that you are copying your code correctly, and you are still within expiration time</p>
+<form action='/api/sessions/verify-recover' method='POST'>
+    <input type='text' name='email' placeholder='email' />
+    <input type='text' name='code' placeholder='code' />
+    <input type='password' name='password' placeholder='new password' />
+    <input type='submit' value='Verify' />
+</form>
+<div>
+    <div>
+        <p>If the previous code has expired, click here to generate a new one <span><a href="/api/sessions/recover-pass">Refill form</a></span>
+        </p>
+    </div>

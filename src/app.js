@@ -5,23 +5,23 @@ import handlebars from "express-handlebars";
 import session from "express-session";
 import passport from "passport";
 import path from "path";
+import swaggerJSDoc from "swagger-jsdoc";
+import swaggerUiExpress from "swagger-ui-express";
+import { addLogger } from "./Utils/logger.js";
+import { __dirname, connectMongo, startSocket } from "./Utils/utils.js";
 import { iniPassport } from "./config/passport.config.js";
 import errorHandler from "./middlewares/error.js";
+import { productsRender } from "./routes/ProductsRender.js";
 import { authRouter } from "./routes/auth.router.js";
 import { cartRender } from "./routes/cartRender.js";
 import { cartRouter } from "./routes/cart_router.js";
 import { testChat } from "./routes/chat.router.js";
-import { productsRender } from "./routes/ProductsRender.js";
+import { fakeData } from "./routes/faker.router.js";
+import { loggerTest } from "./routes/loggerTest.router.js";
 import { productsRouter } from "./routes/products_router.js";
 import { sessionsRouter } from "./routes/sessions.router.js";
-import { connectMongo, startSocket, __dirname } from "./Utils/utils.js";
-import { fakeData } from "./routes/faker.router.js";
-import { addLogger } from "./Utils/logger.js";
-import { loggerTest } from "./routes/loggerTest.router.js";
-import swaggerJSDoc from "swagger-jsdoc";
-import swaggerUiExpress from "swagger-ui-express"
-import { usersRouter } from "./routes/users.router.js";
 import { userRender } from "./routes/users.render.js";
+import { usersRouter } from "./routes/users.router.js";
 
 dotenv.config()
 

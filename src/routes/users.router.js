@@ -1,9 +1,9 @@
 import express from 'express';
-import { isAdmin, isUser } from '../middlewares/auth.js';
-import { getAllUsers } from '../controllers/a_users/getAllUsers.js';
-import { deleteInactiveUsers } from '../controllers/a_users/deleteInactiveUsers.js';
 import { deleteById } from '../controllers/a_users/deleteById.js';
+import { deleteInactiveUsers } from '../controllers/a_users/deleteInactiveUsers.js';
+import { getAllUsers } from '../controllers/a_users/getAllUsers.js';
 import { updateUser } from '../controllers/a_users/updateUser.js';
+import { isAdmin, isUser } from '../middlewares/auth.js';
 export const usersRouter = express.Router();
 
 

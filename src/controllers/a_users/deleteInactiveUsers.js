@@ -1,7 +1,7 @@
-import moment from "moment"
-import UserService from "../../services/UserService.js"
 import dotenv from "dotenv"
+import moment from "moment"
 import { sendMail } from "../../Utils/emailRecovery.js"
+import UserService from "../../services/UserService.js"
 
 dotenv.config()
 

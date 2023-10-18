@@ -4,7 +4,7 @@ import { deleteProduct } from '../controllers/products/deleteProduct.js';
 import { getProduct } from '../controllers/products/getProduct.js';
 import { getProductByid } from '../controllers/products/getProductById.js';
 import { updateProduct } from '../controllers/products/updateProduct.js';
-import { isAdmin, isPremium, isUser } from '../middlewares/auth.js';
+import { isPremium, isUser } from '../middlewares/auth.js';
 
 export const productsRouter = express.Router();
 

@@ -1,11 +1,10 @@
-import { ObjectId } from "mongoose";
 import ProductsDAO from "../DAO/mongo/ProductsDAO.js";
 import { logger } from "../Utils/logger.js";
 import { generateProductCode } from "../Utils/utils.js";
 import UserService from "./UserService.js";
 import CustomError from "./errorHandling/CustomError.js";
 import HandledErrors from "./errorHandling/ErrorCode.js";
-import {getErrorCause} from "./errorHandling/info.js";
+import { getErrorCause } from "./errorHandling/info.js";
 
 
 

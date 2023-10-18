@@ -1,4 +1,3 @@
-import CustomError from "../../services/errorHandling/CustomError.js";
 import ProductService from "../../services/ProductService.js";
 import { sendErrorResponse } from "../../Utils/utils.js";
 

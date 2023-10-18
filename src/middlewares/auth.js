@@ -1,7 +1,6 @@
 import { logger } from "../Utils/logger.js";
 import CustomError from "../services/errorHandling/CustomError.js";
 import HandledErrors from "../services/errorHandling/ErrorCode.js";
-import error from "./error.js";
 
 export function isUser(req, res, next) {
     try {

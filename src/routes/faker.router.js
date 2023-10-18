@@ -1,5 +1,5 @@
-import express from 'express';
 import { faker } from '@faker-js/faker';
+import express from 'express';
 
 const generateFakeData = (res) => {
     const products = [];

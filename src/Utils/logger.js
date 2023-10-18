@@ -1,5 +1,4 @@
 // LOGGER
-import chalk from "chalk";
 import winston from "winston";
 const logLevelsOptions = {
     levels: {

@@ -17,6 +17,7 @@ const userSchema = new Schema({
         type: String,
         required: true,
         max: 100,
+        min: 5,
         unique: true,
     },
     age:{
@@ -28,6 +29,7 @@ const userSchema = new Schema({
         type: String,
         required: true,
         max: 100,
+        min: 6,
     },
     cartId:{
         type: Schema.Types.ObjectId,

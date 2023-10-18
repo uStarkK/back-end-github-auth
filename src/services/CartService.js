@@ -5,8 +5,8 @@ import { logger } from "../Utils/logger.js";
 import { generateTicketCode } from "../Utils/utils.js";
 import CustomError from "./errorHandling/CustomError.js";
 import HandledErrors from "./errorHandling/ErrorCode.js";
-import {getErrorCause} from "./errorHandling/info.js";
-import ProductService from "./ProductService.js"
+import { getErrorCause } from "./errorHandling/info.js";
+import ProductService from "./ProductService.js";
 import TicketService from "./TicketService.js";
 import UserService from "./UserService.js";
 

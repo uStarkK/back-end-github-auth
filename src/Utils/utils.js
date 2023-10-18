@@ -42,8 +42,8 @@ export async function connectMongo() {
 // SOCKET //
 
 import { Server } from 'socket.io';
-import ProductService from "../services/ProductService.js";
 import { MsgModel } from "../DAO/mongo/models/msgs.model.js";
+import ProductService from "../services/ProductService.js";
 
 export const startSocket = async (httpServer) => {
     const socketServer = new Server(httpServer)
