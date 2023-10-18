@@ -1,4 +1,5 @@
 import { ProductsModel } from "../../../DAO/mongo/models/products.model.js";
+import { sendErrorResponse } from "../../../Utils/utils.js";
 
 
 
@@ -25,6 +26,6 @@ export const getProducts = async (req, res, next) => {
         const { docs, ...rest } = queryResult
         return res.status(200).render("home", {docs, sort, query, pagination: rest, user })
     } catch (err) {
-        req.logger.error("error")
+        sendErrorResponse(res, err)
     }
 }

@@ -2,7 +2,7 @@
 const API_URL = window.location.protocol + '//' + window.location.host + '/' + "api/";
 let cartId = sessionStorage.getItem("cart")
 console.log(cartId)
-function addProductToCart(pid) {
+function addProductToCart(pid, stock) {
     if( !cartId ){
         alert("You must be logged-in to add products into your cart")
     }
@@ -20,14 +20,25 @@ function addProductToCart(pid) {
         .then(response => {
             if(response.ok){
                 console.log("Product updated in cart")
-            }else{
-                console.error("Error updating product in cart")
             }
         })
         .catch(error => {
-            // Handle any errors
-            console.error(error);
+            console.log(error);
+            displayModal("An error occurred while updating the product in the cart. Please try again later.")
         });
+}
+
+
+function displayModal(message) {
+    const modal = document.getElementById("errorModal");
+    const modalMessage = document.getElementById("modalErrorMessage");
+    modalMessage.textContent = message;
+    modal.style.display = "block";
+}
+
+function closeModal() {
+    const modal = document.getElementById("errorModal");
+    modal.style.display = "none";
 }
 
 function deleteProduct(pid) {
@@ -41,6 +52,7 @@ function deleteProduct(pid) {
                 console.log("Product deleted succesfully")
             }
         }).catch(error => {
+            alert(error.message)
             console.error(error)
         })
 }
@@ -82,12 +94,13 @@ function submitForm(id) {
         },
         body: JSON.stringify(updatedProduct)
     }).then(response => {
-        if (response.ok) {
-            console.log("Product updated");
-        } else {
-
-            console.error('Error updating Product.');
+        if(response.ok){
+            alert("Product updated")
+            console.log("Product updated succesfully")
         }
+    }).catch(error => {
+        alert(error.message)
+        console.error(error)
     })
     formContainer.style.display = "none"
     productContainer.style.display = "flex"
@@ -121,12 +134,12 @@ function submitProduct(){
         body: JSON.stringify(newProduct)
     }).then(response => {
         if(response.ok){
-            alert("New product added succesfully")
-            window.location.href = "/"
-        }else{
-            console.error("Could not add product")
-            alert("Error adding product")
+            alert("Product submitted")
+            console.log("Product submitted succesfully")
         }
+    }).catch(error => {
+        alert(error.message)
+        console.error(error)
     })
     hideForm()
 }

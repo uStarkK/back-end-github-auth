@@ -40,7 +40,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(session({
-    store: MongoStore.create({ mongoUrl: DB, ttl: 500000, dbName: "ecommerce" }),
+    store: MongoStore.create({ mongoUrl: DB, ttl: 80000, dbName: "ecommerce" }),
     secret: SESSION_SECRET,
     resave: true,
     saveUninitialized: true

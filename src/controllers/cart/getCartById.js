@@ -1,5 +1,3 @@
-import CartsDAO from "../../DAO/mongo/CartsDAO.js";
-import { CartModel } from "../../DAO/mongo/models/carts.model.js";
 import CartService from "../../services/CartService.js";
 import { sendErrorResponse } from "../../Utils/utils.js";
 

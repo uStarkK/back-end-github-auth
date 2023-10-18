@@ -1,4 +1,6 @@
 import { CartModel } from "../../../DAO/mongo/models/carts.model.js";
+import { sendErrorResponse } from "../../../Utils/utils.js";
+import CustomError from "../../../services/errorHandling/CustomError.js";
 
 
 
@@ -19,6 +21,6 @@ export const getAllCarts = async (req, res) =>{
         totalPrice = totalPrice.toFixed(2)
         res.render("cartView", {items, createdAt, totalPrice})
     }catch (e) {
-        req.logger.error(e.message)
+        sendErrorResponse(res, err)
     }
 }

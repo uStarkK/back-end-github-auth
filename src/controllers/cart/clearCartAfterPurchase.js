@@ -1,5 +1,6 @@
-import CartService from "../../services/CartService.js";
 import { sendErrorResponse } from "../../Utils/utils.js";
+import CartService from "../../services/CartService.js";
+import CustomError from "../../services/errorHandling/CustomError.js";
 
 export const clearCartAfterPurchase = async (req, res) =>{
     try{const cartId = req.params.cid;

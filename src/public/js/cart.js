@@ -7,11 +7,13 @@ function finishPurchase() {
     }).then(response => response.json())
         .then(data => {
             // Handle the response data
-            console.log(data);
+            alert(JSON.stringify(data.msg))
+            console.log(JSON.stringify(data));
         })
         .catch(error => {
             // Handle any errors
             console.error(error);
+            alert(error.message)
         });
 }
 
@@ -58,6 +60,7 @@ async function handleInput(pid) {
                 console.error('Failed to update quantity');
             }
         } catch (error) {
+            alert("Error", error.message)
             console.error('Error:', error);
         }
         ;

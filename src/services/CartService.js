@@ -127,7 +127,7 @@ class CartsService {
         const user = await UserService.getOne(uid)
 
         if (product) {
-            if (product.stock === 0){
+            if (product.stock === 0 || product.stock < quantity){
                 CustomError.createError({
                     name: "Not enough stock",
                     cause: getErrorCause("Not enough stock"),
@@ -154,7 +154,7 @@ class CartsService {
 
     async updateProductInCart(cid, pid, quantity, uid) {
         const cart = await this.getById(cid)
-        
+        const product = await ProductService.getById(pid)
         if (!cart) {
             CustomError.createError({
                 name: "Cart not found",
@@ -163,13 +163,20 @@ class CartsService {
                 code: HandledErrors.RESOURCE_NOT_FOUND_ERROR
             })
         }
-        const product = await ProductsModel.find({ _id: pid })
         if (!product) {
             CustomError.createError({
                 name: "Product not found",
                 cause: getErrorCause("Product not found"),
                 message: "An error occurred while trying to find the requested product",
                 code: HandledErrors.RESOURCE_NOT_FOUND_ERROR
+            })
+        }
+        if (product.stock === 0 || product.stock < quantity){
+            CustomError.createError({
+                name: "Not enough stock",
+                cause: getErrorCause("Not enough stock"),
+                msg: "An error occurred while trying to process the last request",
+                code: HandledErrors.VALIDATION_ERROR
             })
         }
         const result = await CartsDAO.fetchAndUpdate(

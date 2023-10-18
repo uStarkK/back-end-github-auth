@@ -89,34 +89,41 @@ export const isValidPassword = (password, hashPassword) => bcrypt.compareSync(pa
 
 
 export const sendErrorResponse = (res, err) => {
-    if (err.message === 'Cart not found') {
+    logger.error(err)
+    if (err.name === 'Cart not found') {
         return res.status(404).json({
             status: "Error",
             msg: "An error occurred while trying to find the cart. Please try again"
         });
     }
-    if (err.message === 'Product not found') {
+    if (err.name === 'Product not found') {
         return res.status(404).json({
             status: "Error",
             msg: "An error occurred while trying to find the product. Please try again"
         });
     }
-    if (err.message === 'Not enough stock') {
+    if (err.name === 'Not enough stock') {
         return res.status(404).json({
             status: "Error",
             msg: "The product is either unavailable or it does not have enough stock remaining"
         });
     }
-    if (err.message === 'No items available for purchase') {
+    if (err.name === 'No items available for purchase') {
         return res.status(404).json({
             status: "Error",
             msg: "There are no available items in your cart"
         });
     }
-    if (err.message === 'Ticket not found') {
+    if (err.name === 'Ticket not found') {
         return res.status(404).json({
             status: "Error",
             msg: "An error occurred while trying to find the ticket. Please try again"
+        });
+    }
+    if (err.name === 'Lacking permissions') {
+        return res.status(404).json({
+            status: "Error",
+            msg: "You lack permissions to perform this operation"
         });
     }
     if (err.name === 'ValidationError') {
@@ -130,6 +137,7 @@ export const sendErrorResponse = (res, err) => {
 
 ///// Generate ticket's Code
 import { TicketModel } from "../DAO/mongo/models/tickets.model.js";
+import { logger } from "./logger.js";
 
 
 export async function generateTicketCode() {
